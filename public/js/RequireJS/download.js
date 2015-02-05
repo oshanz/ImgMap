@@ -1,0 +1,10 @@
+//download.js v3.1, by dandavis; 2008-2014. [CCBY2] see http://danml.com/download.html for tests/usage
+// https://github.com/rndme/download
+// data can be a string, Blob, File, or dataURL
+
+"use strict";
+
+define(function(n){return function(k,b,c){function p(l){var a=l.split(/[:;,]/);l=a[1];for(var a=("base64"==a[2]?atob:decodeURIComponent)(a.pop()),c=a.length,b=0,d=new Uint8Array(c),b=0;b<c;++b)d[b]=a.charCodeAt(b);return new f([d],{type:l})}function h(a,b){if("download"in d)return d.href=a,d.setAttribute("download",m),d.innerHTML="downloading...",g.body.appendChild(d),setTimeout(function(){d.click();g.body.removeChild(d);!0===b&&setTimeout(function(){e.URL.revokeObjectURL(d.href)},250)},66),!0;if("undefined"!==
+typeof safari)return a="data:"+a.replace(/^data:([\w\/\-\+]+)/,"application/octet-stream"),!window.open(a)&&confirm("Displaying New Document\n\nUse Save As... to download, then click back to return to this page.")&&(location.href=a),!0;var c=g.createElement("iframe");g.body.appendChild(c);b||(a="data:"+a.replace(/^data:([\w\/\-\+]+)/,"application/octet-stream"));c.src=a;setTimeout(function(){g.body.removeChild(c)},333)}var e=window;c=c||"application/octet-stream";var a=k,g=document,d=g.createElement("a");
+k=function(a){return String(a)};var f=e.Blob||e.MozBlob||e.WebKitBlob||k,f=f.call?f.bind(e):Blob,m=b||"download";"true"===String(this)&&(a=[a,c],c=a[0],a=a[1]);if(String(a).match(/^data\:[\w+\-]+\/[\w+\-]+[,;]/))return navigator.msSaveBlob?navigator.msSaveBlob(p(a),m):h(a);b=a instanceof f?a:new f([a],{type:c});if(navigator.msSaveBlob)return navigator.msSaveBlob(b,m);if(e.URL)h(e.URL.createObjectURL(b),!0);else{if("string"===typeof b||b.constructor===k)try{return h("data:"+c+";base64,"+e.btoa(b))}catch(n){return h("data:"+
+c+","+encodeURIComponent(b))}c=new FileReader;c.onload=function(a){h(this.result)};c.readAsDataURL(b)}return!0}});

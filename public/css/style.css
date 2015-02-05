@@ -1,0 +1,497 @@
+/* Stylesheet / CSS */
+
+html, body, #container { height: 99%; }
+body > #container { height: auto; min-height: 99%; }
+
+body{
+    margin: 0px;padding: 0px;
+}
+
+#footer {
+    clear: both;
+    position: relative;
+    text-align: center;
+    color: #1E90FF;
+    width: 100%;
+    margin-top: 0px
+}
+
+#footer a:visited{
+    color:  #1E90FF
+}
+/*login page css*/
+
+#wrapper {	
+    padding: 70px 0 0 0px;
+    height: 100%;
+}
+#wrapper {
+    width: 350px;
+    margin:10% 50%;
+    position: relative;
+}
+
+#wrappertop {
+    background:url(../images/wrapper_top.png) no-repeat;
+    height:22px;
+}
+
+#wrappermiddle {
+    background:url(../images/wrapper_middle.png) repeat-y;
+    height:240px;
+}
+
+#wrapperbottom {
+    background:url(../images/wrapper_bottom.png) no-repeat;
+    height:22px;
+}
+
+#wrapper h2 {
+    margin-left:20px;
+    font-size:20px;
+    font-weight:bold;
+    font-family:Myriad Pro;
+    text-transform:uppercase;
+    position:absolute;
+    text-shadow: #fff 2px 2px 2px;
+}
+
+#username_input {
+    margin-left:25px;
+    position:absolute;
+    width:300px;
+    height:50px;
+    margin-top:40px;
+}
+
+#username_inputleft {
+    float:left;
+    background:url(../images/input_left.png) no-repeat;
+    height:50px;
+    width: 12px;
+}
+
+#username_inputmiddle {
+    float:left;
+    background:url(../images/input_middle.png) repeat-x;
+    width:276px;
+    height:50px;
+}
+
+#username_inputright {
+    float:left;
+    background:url(../images/input_right.png) no-repeat;
+    width:12px;
+    height:50px;
+}
+
+#url{
+    display:block;
+    width:276px;
+    height:45px;
+    background:transparent;
+    border:0;
+    color:#bdbdbd;
+    font-family:helvetica, sans-serif;
+    font-size:14px;
+    padding-left:20px;
+}
+
+#url_user {
+    position:absolute;
+    display:block;
+    margin-top:-28px;
+    float:left;
+    padding-right:10px;
+}
+
+#password_input {
+    margin-left:25px;
+    position:absolute;
+    width:300px;
+    height:50px;
+    margin-top:100px;
+}
+
+#password_inputleft {
+    float:left;
+    background:url(../images/input_left.png) no-repeat;
+    width:12px;
+    height:50px;
+}
+
+#password_inputmiddle {
+    float:left;
+    background:url(../images/input_middle.png) repeat-x;
+    width:276px;
+    height:50px;
+}
+
+#password_inputright {
+    float:left;
+    background:url(../images/input_right.png) no-repeat;
+    width:12px;
+    height:50px;
+}
+
+#url_password {
+    display:block;
+    position:absolute;
+    margin-top:-32px;
+    float:left;
+    margin-left:4px;
+}
+
+#submit{
+    float:left;
+    position:relative;
+    padding:0;
+    margin-top:160px;
+    margin-left:25px;
+    width:300px;
+    height:40px;
+    border:0;
+}
+
+#submit1 {
+    position:absolute;
+    z-index: 10;
+    border:0;
+}
+
+#submit2 {
+    position:absolute;
+    margin-top:0px;
+    border:0;
+}
+
+#links_left{
+    float:left;
+    position:relative;
+    padding-top:5px;
+    margin-left:25px;
+}
+
+
+
+#links_left a{
+    color:#bbb;
+    font-size:11px;
+    text-decoration:none;
+    transition: color 0.5s linear;
+    -moz-transition: color 0.5s linear;
+    -webkit-transition: color 0.5s linear;
+    -o-transition: color 0.5s linear;
+}
+
+#login_failed{
+    float:center;
+    position:relative;
+    padding-top:5px;
+    margin-left:25px;
+    color:#bbb;
+    font-size:11px;
+    text-decoration:none;
+    transition: color 0.5s linear;
+    -moz-transition: color 0.5s linear;
+    -webkit-transition: color 0.5s linear;
+    -o-transition: color 0.5s linear;
+}
+
+
+#links_left a:hover{
+    color:#292929;
+}
+
+#links_right{
+    float:right;
+    position:relative;
+    padding-top:5px;
+    margin-right:25px;
+}
+
+#links_right a{
+    color:#bbb;
+    font-size:11px;
+    text-decoration:none;
+    transition: color 0.5s linear;
+    -moz-transition: color 0.5s linear;
+    -webkit-transition: color 0.5s linear;
+    -o-transition: color 0.5s linear;
+}
+
+#links_right a:hover{
+    color:#292929;
+}
+/*end of login page css*/
+
+
+
+/* input fields css*/
+/* Plz insert <div> as <div class="form">*/
+.form{
+    font: 90% Arial, Helvetica, sans-serif;
+    height: 100%;
+    background: #F7F7F7;
+    margin-top: 0px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.form h1{
+    background: #43D1AF;
+    padding: 20px 0;
+    font-size: 140%;
+    font-weight: 300;
+    text-align: center;
+    color: #fff;
+    margin: -16px -16px 16px -16px;
+}
+.form input[type="text"],
+.form input[type="date"],
+.form input[type="datetime"],
+.form input[type="email"],
+.form input[type="number"],
+.form input[type="search"],
+.form input[type="time"],
+.form input[type="url"],
+.form textarea,
+.form select 
+{
+    -webkit-transition: all 0.30s ease-in-out;
+    -moz-transition: all 0.30s ease-in-out;
+    -ms-transition: all 0.30s ease-in-out;
+    -o-transition: all 0.30s ease-in-out;
+    outline: none;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    width: 100%;
+    background: #fff;
+    margin-bottom: 4%;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    padding: 3%;
+    color: #555;
+    font: 95% Arial, Helvetica, sans-serif;
+}
+.form input[type="text"]:focus,
+.form input[type="date"]:focus,
+.form input[type="datetime"]:focus,
+.form input[type="email"]:focus,
+.form input[type="number"]:focus,
+.form input[type="search"]:focus,
+.form input[type="time"]:focus,
+.form input[type="url"]:focus,
+.form textarea:focus,
+.form select:focus
+{
+    box-shadow: 0 0 5px #43D1AF;
+    padding: 3%;
+    border: 1px solid #43D1AF;
+}
+
+.form input[type="submit"],
+.form input[type="button"]{
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    width: 100%;
+    padding: 3%;
+    background: #43D1AF;
+    border-bottom: 2px solid #30C29E;
+    border-radius: 3px;
+    border-top-style: none;
+    border-right-style: none;
+    border-left-style: none;    
+    color: #fff;
+}
+.form input[type="submit"]:hover,
+.form input[type="button"]:hover{
+    background: #2EBC99;
+}
+
+/* end ofinput fields css*/
+
+/*combo box css
+insert div class as <div class="combo">*/
+
+.combo select {
+    width: 268px;
+    padding: 3px;
+    font-size: 16px;
+    font-family: helvetica, sans-serif;
+    line-height: 1;
+    border: 1px solid #ccc;
+    border-radius: 0;
+    height: 34px;
+    -webkit-appearance: none;
+    width: 240px;
+    height: 34px;
+    overflow: hidden;
+    background: url(../images/new_arrow.png) no-repeat right white;
+    border-radius: 2px;
+    box-shadow: 0 0 5px #43D1AF;
+    border: 1px solid #43D1AF;
+}
+/*end of combo box css*/
+
+/* table css
+insert table class as <table class="table">*/
+.table{
+    border-collapse: collapse;
+}
+
+.table th{ 
+    padding:8px; 
+    border: 1px solid;
+    border-color:#f3f1f1
+}
+
+.table td{ 
+    border: 1px solid;
+    border-color:#D1D0CE;
+    white-space: nowrap;
+    padding: 5px
+}
+
+.table tr{
+    background: white;
+}
+
+.table tr:hover {
+    background-color: #B3D1FF;
+}
+
+.table thead th {
+    background-color:#089CDC;
+    background: linear-gradient(to bottom, #7abcff 0%,#60abf8 44%,#4096ee 100%);
+}
+/* end of table css*/
+
+.vtab {    
+    list-style-type:none;   
+    margin-bottom: 10px;
+    margin-top: 5px;
+    padding:0;   
+    height:30px;   
+    background-color:#79b7e7;   
+    font-family:Arial;   
+    font-size:0.9em;   
+    background-image:  linear-gradient(to bottom, #1e5799 0%,#2989d8 0%,#207cca 53%,#7db9e8 100%);
+}   
+.vtab li {   
+    float:left;   
+    height:30px;   
+    line-height:30px;   
+}   
+.vtab li a {   
+    display:block;   
+    padding:0 20px;   
+    color: #fff;   
+    text-decoration:none;   
+}   
+.vtab li a:hover {   
+    background-color:#089cdc;   
+    text-decoration:none;   
+}  
+
+//Menu Bar
+nav {
+    display: table;
+    border-collapse: collapse;
+    border: none;
+}
+
+nav div{
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+nav ul ul {
+    display: none;
+}
+
+nav ul li:hover > ul {
+    display: block;
+}
+
+nav ul {
+    background: #0020C2; 
+    background: linear-gradient(top, #00B2EE 10%, #0020C2 100%);  
+    background: -moz-linear-gradient(top, #00B2EE 10%, #0020C2 100%); 
+    background: -webkit-linear-gradient(top, #00B2EE 10%,#0020C2 100%); 
+    box-shadow: 0px 0px 9px rgba(0,0,0,0.15);
+    border-radius: 10px;  
+    list-style: none;
+    position: relative;
+    display: inline-table;
+    /*margin-top: 5px;*/
+    margin-bottom: 0px;
+    padding-left: 0px;
+    width: 100%;
+}
+nav ul:after {
+    content: ""; clear: both; display: block;
+}
+
+nav ul li {
+    float: left;
+    height: 50px;
+}
+
+nav ul li:hover {
+    background: #3BB9FF;
+    background: linear-gradient(top, #00B2EE 0%, #3BB9FF 100%);
+    background: -moz-linear-gradient(top, #00B2EE 0%, #3BB9FF 100%);
+    background: -webkit-linear-gradient(top, #00B2EE 0%, #3BB9FF 40%);
+    box-shadow: 0px 0px 9px rgba(0,0,0,0.15);
+    height: 50px;
+    border-radius: 2px;
+
+}
+nav ul li:hover a {
+    color: #fff;
+}
+
+nav ul li a {
+    display: block; 
+    padding: 0px 40px;
+    font: normal 10px 'Lucida Sans Unicode','Lucida Grande',Helvetica,Arial,sans-serif;
+    color: #fff;
+    font-size: 12px;
+    text-decoration: none;
+    text-align:center;
+    font-weight:bold;
+}
+
+nav ul ul {
+    background: #38B2F6;
+    border-radius: 0px;
+    padding: 0;
+    position: absolute;
+    top: 100%;
+    display: none;
+    width: auto;
+    z-index: 999999;
+}
+nav ul ul li {
+    float: none; 
+    border-top: 1px solid #6b727c;
+    border-bottom: 1px solid #575f6a;
+    position: relative;
+    height:40px;
+}
+nav ul ul li a {
+    padding: 15px 30px;
+    color: #fff;
+}	
+nav ul ul li a:hover {
+    background: #8ec7ff;
+    height:20px;
+    /*border-radius: 5px;*/
+}
+nav ul ul ul {
+    position: absolute; 
+    left: 100%; 
+    top:0;
+}
