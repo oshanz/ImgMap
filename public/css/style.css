@@ -495,7 +495,6 @@ nav ul ul ul {
     left: 100%; 
     top:0;
 }
-//////////////////////////////////////////////////      breadcrumb
 .breadcrumb{
     background: #eee;
     border-width: 1px;
@@ -561,4 +560,25 @@ nav ul ul ul {
 .breadcrumb .current::after,
 .breadcrumb .current::before{
     content: normal;  
+}
+.rounded-list {
+    list-style: none;
+    padding-left: 0px
+}
+.rounded-list a{
+    position: relative;
+    display: block;
+    padding: .6em .6em .6em 1em;
+    *padding: .6em;
+    margin: .1em 0;
+    background: #00B2EE;
+    color: #333333;
+    text-decoration: none;
+    border-radius: .3em;
+    transition: all .3s ease-out;
+    font-size: 12px;
+}
+.rounded-list a:hover{
+    background: #00D3EE;
+    color: #fff;
 }

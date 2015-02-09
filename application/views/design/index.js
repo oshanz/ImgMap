@@ -17,10 +17,17 @@ require(['backbone', 'jquery'], function(Backbone, $) {
         },
         index: function() {
             var self = this;
-            require([''], function(av) {
-                var acv = new av();
-                $('#accordion').html(acv.render());
-                self.accordian = acv;
+            require(['breadcrumb/tbl_view', 'breadcrumb/bc_view'], function(tv, bv) {
+                var atv = new tv({
+                    collection: new Backbone.Collection([
+                        {name: "Tim", age: 5},
+                        {name: "Ida", age: 26},
+                        {name: "Rob", age: 55}
+                    ])
+                });
+                var abv = new bv();
+                $('#breadcrumb').html(abv.render());
+                self.breadcrumb = abv;
             });
         }
     });

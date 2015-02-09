@@ -3,12 +3,12 @@
 define(function(require) {
     var _ = require('underscore'),
             Backbone = require('backbone'),
-            tpl = _.template('<li><a href="#">Section</a></li>');
+            tpl = _.template('<li><a href="#"><%=list[0].name%></a></li>');
 
     return Backbone.View.extend({
         template: tpl,
         render: function() {
-            this.$el.html(this.template());
+            this.$el.html(this.template({list: this.collection.toJSON()}));
             return this.el;
         },
         events: {
