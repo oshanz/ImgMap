@@ -10,7 +10,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <!--<meta name="viewport" content="user-scalable=no, initial-scale=1,minimum-scale=1, maximum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi">-->
-        <title>Pharmacy Management System</title>
+        <title>Img Map</title>
         <link rel="shortcut icon" href="<?php echo base_url() ?>public/icon/favicon.ico" type="image/x-icon"/>
         <meta name="description" content="Pharmacy Management System in Sri Lanka" />
         <meta name="keywords" content="Pharmacy Management System, sri lanka " />
