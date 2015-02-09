@@ -23,11 +23,7 @@ $sections = $c->getSections();
         </tr>
         <tr>
             <td>
-                <ul class="rounded-list" style="width: 300px" id="breadList">
-                    <li> <a href="#">Rathnapura Agency-Area</a></li>
-                    <li> <a href="#">Kegalle Agency-Area</a></li>
-                    <li> <a href="#">Yatiyanthota Agency-Area</a></li>
-                </ul>
+                <ul class="rounded-list" style="width: 300px" id="breadList"></ul>
             </td>
         </tr>
     </table>

@@ -48,6 +48,9 @@ class Design extends CI_Controller {
     }
 
     function getEquipments() {
-        
+        $this->load->model('design_model');
+        $eq = $this->design_model->getEquipments();
+        echo json_encode($eq);
     }
+
 }

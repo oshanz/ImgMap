@@ -14,7 +14,7 @@ require(['backbone', 'jquery'], function(Backbone, $) {
     var Router = Backbone.Router.extend({
         routes: {
             '': 'index',
-            'list/:id_equipment': 'updateBreadcrumb'
+            'breadcrumb/:id_equipment': 'updateBreadcrumb'
         },
         index: function() {
             var self = this;
@@ -29,13 +29,25 @@ require(['backbone', 'jquery'], function(Backbone, $) {
                 var abv = new bv({
                     model: new (Backbone.Model.extend({
                         defaults: {
-                            description: 'Sections'
+                            description: 'Sections',
+                            id_equipment: -1
                         }
                     }))()
                 });
                 $('#breadcrumb').html(abv.render());
                 atv.breadcrumb = abv;
+                self.tbl_view = atv;
             });
+        },
+        updateBreadcrumb: function(id_equipment) {
+            if (!this.tbl_view) {
+                window.location.href = URL + 'design';
+            }
+            if (id_equipment > 0) {
+                this.tbl_view.loadPrevious(id_equipment);
+            } else {
+                this.tbl_view.collection.reset(window.oz.sections);
+            }
         }
     });
 

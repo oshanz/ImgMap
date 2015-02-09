@@ -3,7 +3,7 @@
 define(function(require) {
     var _ = require('underscore'),
             Backbone = require('backbone'),
-            tpl = _.template('<li><a href="#"><%=description%></a></li>');
+            tpl = _.template('<li><a href="#breadcrumb/<%=id_equipment%>"><%=description%></a></li>');
 
     return Backbone.View.extend({
         template: tpl,
@@ -18,8 +18,10 @@ define(function(require) {
             'click a': 'updateView'
         },
         updateView: function(e) {
-            var t = $(e.currentTarget).parent('li');
-            //   alert(this.$('li').index(t));
+            var gt = this.$('li').index($(e.currentTarget).parent('li'));
+            if (gt) {
+                this.$('li:gt(' + gt + ')').remove();
+            }
         },
         changeHierarchy: function() {
             this.$el.append(this.template(this.model.toJSON()));
