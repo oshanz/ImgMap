@@ -13,21 +13,28 @@ require(['backbone', 'jquery'], function(Backbone, $) {
 
     var Router = Backbone.Router.extend({
         routes: {
-            '': 'index'
+            '': 'index',
+            'list/:id_equipment': 'updateBreadcrumb'
         },
         index: function() {
             var self = this;
             require(['breadcrumb/tbl_view', 'breadcrumb/bc_view'], function(tv, bv) {
-                var atv = new tv({
-                    collection: new Backbone.Collection([
-                        {name: "Tim", age: 5},
-                        {name: "Ida", age: 26},
-                        {name: "Rob", age: 55}
-                    ])
+                var c = Backbone.Collection.extend({
+                    url: URL + 'design/getEquipments'
                 });
-                var abv = new bv();
+                var atv = new tv({
+                    collection: new c(window.oz.sections)
+                });
+                $('#breadList').html(atv.render());
+                var abv = new bv({
+                    model: new (Backbone.Model.extend({
+                        defaults: {
+                            description: 'Sections'
+                        }
+                    }))()
+                });
                 $('#breadcrumb').html(abv.render());
-                self.breadcrumb = abv;
+                atv.breadcrumb = abv;
             });
         }
     });

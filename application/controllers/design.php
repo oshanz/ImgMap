@@ -44,7 +44,10 @@ class Design extends CI_Controller {
 
     function getSections() {
         $this->load->model('design_model');
-        $s = $this->design_model->getSections();
+        return $this->design_model->getSections();
     }
 
+    function getEquipments() {
+        
+    }
 }

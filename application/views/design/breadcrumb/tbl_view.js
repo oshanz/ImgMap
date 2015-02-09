@@ -3,20 +3,28 @@
 define(function(require) {
     var _ = require('underscore'),
             Backbone = require('backbone'),
-            tpl = _.template('<li><a href="#"><%=list[0].name%></a></li>');
+            tpl = _.template('<li><a href="#"><%=description%></a></li>');
 
     return Backbone.View.extend({
         template: tpl,
         render: function() {
-            this.$el.html(this.template({list: this.collection.toJSON()}));
+            this.collection.forEach(function(model) {
+                this.$el.append(this.template(model.toJSON()));
+            }, this);
             return this.el;
         },
         events: {
-            'click a': 'updateView'
+            'click a': 'updateBreadcrumb'
         },
-        updateView: function(e) {
-            var t = $(e.currentTarget).parent('li');
-            alert(this.$('li').index(t));
+        updateBreadcrumb: function(e) {
+            this.$el.hide();
+            this.breadcrumb.model.set(this.collection.at(this.$('li').index($(e.currentTarget).parent('li'))).toJSON());
+            this.breadcrumb.model.set({time: new Date().getTime()});
+            this.collection.fetch({
+                reset: true,
+                data: {id_parent: 1},
+                processData: true
+            });
         }
     });
 });
