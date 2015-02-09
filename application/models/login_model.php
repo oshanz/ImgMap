@@ -20,7 +20,7 @@ class Login_model extends CI_Model {
     }
 
     function checkAuth() {
-        return $this->db->get_where('tbl_user', array('u_uname' => $_POST['userName'], 'u_pwd' => md5($_POST['password'])));
+        return $this->db->get_where('user', array('username' => $_POST['userName'], 'password' => md5($_POST['password'])));
     }
 
 }
