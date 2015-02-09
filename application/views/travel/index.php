@@ -9,17 +9,8 @@
 /**
  * @author Waruna Oshan Wisumperuma
  * @contact warunaoshan@gmail.com
- * Feb 9, 2015 10:26:22 AM
+ * Feb 9, 2015 10:45:30 AM
  */
-class directory extends CI_Controller {
+?>
 
-    //put your code here
-    public function __construct() {
-        parent::__construct();
-    }
-
-    function index() {
-        
-    }
-
-}
+sdfd
