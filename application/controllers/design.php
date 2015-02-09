@@ -20,8 +20,26 @@ class Design extends CI_Controller {
 
     function index() {
         $this->load->view('template/header');
+        $this->load->view('template/menu');
         $this->load->view('design/index');
         $this->load->view('template/footer');
+    }
+
+    function addEquipment() {
+        $config['upload_path'] = './uploads/';
+        $config['allowed_types'] = 'gif|jpg|png';
+//        $config['max_size'] = '5120';
+        $this->load->library('upload', $config);
+        $field_name = "asdasd";
+        if ($this->upload->do_upload($field_name)) {
+            $data = array('upload_data' => $this->upload->data());
+            print_r($data);
+//            $this->load->view('upload_success', $data);
+        } else {
+            $error = array('error' => $this->upload->display_errors());
+            print_r($error);
+//            $this->load->view('upload_form', $error);
+        }
     }
 
 }
