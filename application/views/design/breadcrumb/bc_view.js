@@ -19,9 +19,7 @@ define(function(require) {
         },
         updateView: function(e) {
             var gt = this.$('li').index($(e.currentTarget).parent('li'));
-            if (gt) {
-                this.$('li:gt(' + gt + ')').remove();
-            }
+            this.$('li:gt(' + gt + ')').remove();
         },
         changeHierarchy: function() {
             this.$el.append(this.template(this.model.toJSON()));

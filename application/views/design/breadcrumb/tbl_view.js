@@ -3,7 +3,7 @@
 define(function(require) {
     var _ = require('underscore'),
             Backbone = require('backbone'),
-            tpl = _.template('<li><a href="#"><%=description%></a></li>');
+            tpl = _.template('<li><a href="#select/<%=id_equipment%>"><%=description%></a></li>');
 
     return Backbone.View.extend({
         template: tpl,
