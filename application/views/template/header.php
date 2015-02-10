@@ -42,13 +42,6 @@
             echo "<script>localStorage.setItem('lastLocationWLP', '" . uri_string() . "');</script>";
         }
         ?>
-        <script>
-//            $(document).ajaxError(function(e, x) {
-//                if (x.status == 401) {
-//                    window.location.reload();
-//                }
-//            });
-        </script>
     </head>
     <body>
         <div id="container">

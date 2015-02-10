@@ -15,7 +15,7 @@ $sections = $c->getSections();
 </script>
 
 <div class="form">
-    <table width="100%">
+    <table width="100%" border="0">
         <tr>
             <td>
                 <ul id="breadcrumb" class="breadcrumb"></ul> 
@@ -23,17 +23,12 @@ $sections = $c->getSections();
         </tr>
         <tr>
             <td>
-                <table>
+                <table border="0" width="100%">
                     <tr>
-                        <td style="text-wrap: avoid;min-width: 200px">
+                        <td style="text-wrap: avoid;width: 15%" valign="top">
                             <ul class="rounded-list" id="breadList"></ul>         
                         </td>
-                        <td>
-                            <form method="POST" action="<?php echo base_url('design/addEquipment'); ?>" enctype="multipart/form-data">
-                                <input type="file" name="asdasd"/>
-                                <input type="submit" />
-                            </form>
-                        </td>
+                        <td id="formDiv" valign="top"></td>
                     </tr>
                 </table>
             </td>
