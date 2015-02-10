@@ -26,6 +26,7 @@ define(function(require) {
             var ele = $(e.currentTarget)[0];
             if (ele.files && ele.files[0]) {
                 this.fileReader.readAsDataURL(ele.files[0]);
+//                this.$('#preview').attr('src', window.URL.createObjectURL(ele.files[0]));
             }
         }
     });
