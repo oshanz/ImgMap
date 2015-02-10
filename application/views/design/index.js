@@ -14,7 +14,8 @@ require(['backbone', 'jquery'], function(Backbone, $) {
     var Router = Backbone.Router.extend({
         routes: {
             '': 'index',
-            'breadcrumb/:id_equipment': 'updateBreadcrumb'
+            'breadcrumb/:id_equipment': 'updateBreadcrumb',
+            'select/:id_equipment': 'selector'
         },
         index: function() {
             var self = this;
@@ -47,6 +48,11 @@ require(['backbone', 'jquery'], function(Backbone, $) {
                 this.tbl_view.loadPrevious(id_equipment);
             } else {
                 this.tbl_view.collection.reset(window.oz.sections);
+            }
+        },
+        selector: function(id_equipment) {
+            if (!this.tbl_view) {
+                window.location.href = URL + 'design';
             }
         }
     });

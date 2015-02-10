@@ -23,7 +23,19 @@ $sections = $c->getSections();
         </tr>
         <tr>
             <td>
-                <ul class="rounded-list" style="width: 300px" id="breadList"></ul>
+                <table>
+                    <tr>
+                        <td style="text-wrap: avoid;min-width: 200px">
+                            <ul class="rounded-list" id="breadList"></ul>         
+                        </td>
+                        <td>
+                            <form method="POST" action="<?php echo base_url('design/addEquipment'); ?>" enctype="multipart/form-data">
+                                <input type="file" name="asdasd"/>
+                                <input type="submit" />
+                            </form>
+                        </td>
+                    </tr>
+                </table>
             </td>
         </tr>
     </table>
@@ -32,7 +44,3 @@ $sections = $c->getSections();
 <script data-main="<?php echo base_url('application/views/design/index.js') ?>" src="<?php echo base_url('public/js/RequireJS/require.js'); ?>"></script>
 
 
-<!--<form method="POST" action="<?php echo base_url('design/addEquipment'); ?>" enctype="multipart/form-data">
-<input type="file" name="asdasd"/>
-<input type="submit" />
-</form>-->
