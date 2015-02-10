@@ -18,12 +18,10 @@
         <meta name="author" content="Waruna Oshan Wisumperuma"/> 
         <meta name="owner" content="Wavelink" /> 
         <meta name="copyright" content="Copyright ® 2014 Wavelink Technologies(Pvt) Ltd." />
-
         <!--JS Data-->
         <script>
             var URL = '<?php echo base_url(); ?>';
         </script>
-
         <!--CSS-->
         <link rel="stylesheet" href="<?php echo base_url() ?>public/css/jquery-ui.min.css" />
         <link rel="stylesheet" href="<?php echo base_url() ?>public/css/jquery.ui.timepicker.css" />
@@ -33,7 +31,6 @@
             div.ui-datepicker{font-size:12px;}
             div.ui-timepicker{font-size: 12px}
         </style>
-
         <!--JS-->
         <!-- Here Mandatory JS Only. others are at javascript template -->
         <script src="<?php echo base_url() ?>public/js/json2.js"></script>
