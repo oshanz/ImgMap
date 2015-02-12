@@ -2,13 +2,14 @@
     <table border="0" width="100%">
         <tr>
             <td>
-                <label for="img"></label>
-                <input type="file" name="img" id="img"/>
-            </td>
-            <td>
                 <label for="img">Select Image</label>
                 <input type="file" name="img" id="img"/>
+                <label for="img_name">Title :</label>
+                <input type="text" name="img_name" id="img_name" style="margin: 5px;padding: 3px;width: 300px"/>
             </td>
+        </tr>
+        <tr>
+            <td> <img id="preview" src="public/images/awaiting-image.png" alt="your image" style="max-width: 100%;"/></td>
         </tr>
         <tr>
             <td>
@@ -20,11 +21,23 @@
             </td>
         </tr>
         <tr>
-            <td> <img id="preview" src="public/images/awaiting-image.png" alt="your image" style="max-width: 100%;"/></td>
+            <td>
+                <table class="table" width="400px">
+                    <thead>
+                        <tr>
+                            <th>Sub Category</th>
+                            <th width="50px">Edit</th>
+                            <th width="50px">Remove</th>
+                        </tr>
+                    </thead>
+                    <tbody id="sub_cat_list">
+                    </tbody>
+                </table>
+            </td>
         </tr>
         <tr>
             <td>
-                <input type="submit" />
+                <input type="submit" style="float: right"/>
             </td>
         </tr>
     </table>
