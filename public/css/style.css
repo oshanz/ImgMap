@@ -12,6 +12,7 @@ body{
     width: 24px;
     height: 24px;
     display: block;
+    cursor: pointer
 }
 
 .min_icon{
@@ -19,6 +20,7 @@ body{
     width: 24px;
     height: 24px;
     display: block;
+    cursor: pointer
 }
 
 #footer {
@@ -300,7 +302,7 @@ body{
 .form select:focus
 {
     box-shadow: 0 0 5px #43D1AF;
-    padding: 3%;
+    padding: 1.5%;
     border: 1px solid #43D1AF;
 }
 

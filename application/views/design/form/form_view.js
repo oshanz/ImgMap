@@ -20,7 +20,8 @@ define(function(require) {
             return this.el;
         },
         events: {
-            'change #img': 'loadImg'
+            'change #img': 'loadImg',
+            'click #preview': 'openfileChooser'
         },
         loadImg: function(e) {
             var ele = $(e.currentTarget)[0];
