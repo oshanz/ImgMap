@@ -13,24 +13,22 @@
         </tr>
         <tr>
             <td>
-                <label>Sub Category</label>
-                <label for="sub_cat">Name : </label>
-                <input type="text" style="margin: 5px;padding: 3px;width: 300px" name="sub_cat"/>
-                <input type="button" value="Add"/>
-                <input type="button" value="Reset"/>
-            </td>
-        </tr>
-        <tr>
-            <td>
                 <table class="table" width="400px">
                     <thead>
                         <tr>
+                            <th></th>
                             <th>Sub Category</th>
-                            <th width="50px">Edit</th>
-                            <th width="50px">Remove</th>
+                            <th width="50px"></th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody id="sub_cat_list">
+                        <tr>
+                            <td><a class="plus_icon"></a></td>
+                            <td><input type="text"/></td>
+                            <td><input type="button" value="Save"/></td>
+                            <td><a class="min_icon"></a></td>
+                        </tr>
                     </tbody>
                 </table>
             </td>

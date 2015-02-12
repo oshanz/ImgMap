@@ -7,6 +7,20 @@ body{
     margin: 0px;padding: 0px;
 }
 
+.plus_icon{
+    background: url('../icon/add_remove.png') no-repeat 0 0;
+    width: 24px;
+    height: 24px;
+    display: block;
+}
+
+.min_icon{
+    background: url('../icon/add_remove.png') no-repeat 0 -34px;
+    width: 24px;
+    height: 24px;
+    display: block;
+}
+
 #footer {
     clear: both;
     position: relative;
@@ -352,6 +366,10 @@ insert table class as <table class="table">*/
     border-color:#D1D0CE;
     white-space: nowrap;
     padding: 5px
+}
+
+.table input[type="text"]{
+    margin: 0px;padding: 3px
 }
 
 .table tr{
