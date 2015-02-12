@@ -26,7 +26,12 @@ class design_model extends CI_Model {
     }
 
     function addEquipment() {
-        
+        $data = array(
+            'description' => $_POST['img_name'],
+            'url' => '',
+            'level' => $_POST['level']
+        );
+        $this->db->insert('equipment', $data);
     }
 
 }

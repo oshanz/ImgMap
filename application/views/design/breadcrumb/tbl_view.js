@@ -25,6 +25,8 @@ define(function(require) {
             this.breadcrumb.model.set(model.toJSON());
             this.breadcrumb.model.set({time: new Date().getTime()});
             $('#id_parent').val(model.get('id_equipment'));
+            var level = $('#level');
+            level.val(Number(level.val()) + 1);
             this.collection.fetch({
                 reset: true,
                 data: {id_parent: model.get('id_equipment')},

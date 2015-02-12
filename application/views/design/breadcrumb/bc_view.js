@@ -19,6 +19,7 @@ define(function(require) {
         },
         updateView: function(e) {
             var gt = this.$('li').index($(e.currentTarget).parent('li'));
+            $('#level').val(Number(gt) + 1);
             this.$('li:gt(' + gt + ')').remove();
         },
         changeHierarchy: function() {

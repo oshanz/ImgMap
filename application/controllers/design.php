@@ -27,7 +27,7 @@ class Design extends CI_Controller {
 
     function addEquipment() {
         $this->load->model('design_model');
-        $this->design_model->addEquipment();
+       // $this->design_model->addEquipment();
         print_r($_POST);
         die();
 
