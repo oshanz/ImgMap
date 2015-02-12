@@ -29,9 +29,18 @@ class design_model extends CI_Model {
         $data = array(
             'description' => $_POST['img_name'],
             'url' => '',
-            'level' => $_POST['level']
+            'level' => $_POST['level'],
+            'status' => 1,
         );
-        $this->db->insert('equipment', $data);
+        if (!$_POST['id_parent']) {//new main section
+            $data['id_parent'] = NULL;
+            $this->db->insert('equipment', $data);
+        } else {//child of someone
+            $this->db->update('equipment', $data, array('id_parent' => $_POST['id_parent']));
+        }
+        foreach ($_POST['subLable'] as $sub) {
+            
+        }
     }
 
 }
