@@ -35,7 +35,4 @@ $sections = $c->getSections();
         </tr>
     </table>
 </div>
-
 <script data-main="<?php echo base_url('application/views/design/index.js') ?>" src="<?php echo base_url('public/js/RequireJS/require.js'); ?>"></script>
-
-

@@ -7,6 +7,7 @@ define(function(require) {
 
     return Backbone.View.extend({
         template: tpl,
+        subRows: [],
         initialize: function() {
             var reader = new FileReader();
             var self = this;
@@ -17,11 +18,12 @@ define(function(require) {
         },
         render: function() {
             this.$el.html(this.template());
+            this.addSubCatRow();
             return this.el;
         },
         events: {
             'change #img': 'loadImg',
-            'click #preview': 'openfileChooser'
+            'click .plus_icon': 'addSubCatRow'
         },
         loadImg: function(e) {
             var ele = $(e.currentTarget)[0];
@@ -29,6 +31,20 @@ define(function(require) {
                 this.fileReader.readAsDataURL(ele.files[0]);
 //                this.$('#preview').attr('src', window.URL.createObjectURL(ele.files[0]));
             }
+        },
+        addSubCatRow: function() {
+            var self = this;
+            require(['form/subCatRow'], function(scR) {
+                var ascr = new scR();
+                self.$('#sub_cat_list').append(ascr.render());
+                self.subRows.push(ascr);
+            });
+        },
+        clearAll: function() {
+            _.each(this.subRows, function(sr) {
+                sr.remove();
+            });
+            this.remove();
         }
     });
 

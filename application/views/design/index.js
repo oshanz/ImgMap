@@ -42,8 +42,10 @@ require(['backbone', 'jquery'], function(Backbone, $) {
             }
             if (id_equipment > 0) {
                 this.tbl_view.loadPrevious(id_equipment);
+                $('#id_parent').val(id_equipment);
             } else {
                 this.tbl_view.collection.reset(window.oz.sections);
+                $('#id_parent').val('NULL');
             }
         },
         selector: function(id_equipment) {

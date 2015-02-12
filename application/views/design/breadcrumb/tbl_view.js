@@ -24,6 +24,7 @@ define(function(require) {
             var model = this.collection.at(this.$('li').index($(e.currentTarget).parent('li')));
             this.breadcrumb.model.set(model.toJSON());
             this.breadcrumb.model.set({time: new Date().getTime()});
+            $('#id_parent').val(model.get('id_equipment'));
             this.collection.fetch({
                 reset: true,
                 data: {id_parent: model.get('id_equipment')},
