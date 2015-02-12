@@ -51,7 +51,8 @@ requirejs.config({
         system : URL + 'public/js/RequireJS/System',
         download : URL + 'public/js/RequireJS/download',
         domReady : URL + 'public/js/RequireJS/domReady',
-        timepicker : URL + 'public/js/jquery.ui.timepicker'
+        timepicker : URL + 'public/js/jquery.ui.timepicker',
+        relational : URL + 'public/js/backbone-relational'
     },
     shim: {
         markerwithlabel: {

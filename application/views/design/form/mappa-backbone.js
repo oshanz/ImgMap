@@ -1,0 +1,685 @@
+
+var map = {
+    "name": "map-name",
+    "areas": [
+        {
+            "id": 1,
+            "shape": "polygon",
+            "href": "page.html",
+            "alt": "Link to Page",
+            "selected": false,
+            "points": [
+                {
+                    "id": 1,
+                    "x": 10,
+                    "y": 10
+                },
+                {
+                    "id": 2,
+                    "x": 150,
+                    "y": 50
+                },
+                {
+                    "id": 3,
+                    "x": 20,
+                    "y": 350
+                }
+            ]
+        },
+        {
+            "id": 2,
+            "shape": "polygon",
+            "href": "page2.html",
+            "alt": "Link to Other Page",
+            "selected": false,
+            "points": [
+                {
+                    "id": 4,
+                    "x": 120,
+                    "y": 260
+                },
+                {
+                    "id": 5,
+                    "x": 190,
+                    "y": 260
+                },
+                {
+                    "id": 6,
+                    "x": 190,
+                    "y": 430
+                },
+                {
+                    "id": 7,
+                    "x": 120,
+                    "y": 430
+                }
+            ]
+        },
+        {
+            "id": 3,
+            "shape": "polygon",
+            "href": "page3.html",
+            "alt": "Link to Other Page",
+            "selected": false,
+            "points": [
+                {
+                    "id": 8,
+                    "x": 200,
+                    "y": 100
+                },
+                {
+                    "id": 9,
+                    "x": 240,
+                    "y": 100
+                },
+                {
+                    "id": 10,
+                    "x": 240,
+                    "y": 200
+                }
+            ]
+        }
+    ]
+};
+
+
+/**
+ * Checking browser to set requestAnimationFrame funtion.
+ */
+function requestAnimFrame(obj) {
+    try {
+        return window.requestAnimationFrame(obj);
+    } catch (e) {
+        try {
+            return window.webkitRequestAnimationFrame(obj);
+        } catch (e) {
+            return window.mozRequestAnimationFrame(obj);
+        }
+    }
+}
+
+/**
+ * Checking browser to set cancelAnimationFrame funtion.
+ */
+function cancelAnimFrame(obj) {
+    try {
+        return window.CancelAnimationFrame(obj);
+    } catch (e) {
+        try {
+            return window.webkitCancelAnimationFrame(obj);
+        } catch (e) {
+            return window.mozCancelAnimationFrame(obj);
+        }
+    }
+}
+
+/**
+ * Cross-browser support for mouse position.
+ * @return array
+ */
+function getOffsets(e) {
+    var mxy = [];
+    if (typeof (e.offsetX) != 'undefined') {
+        mx = e.offsetX;
+        my = e.offsetY;
+    } else {
+        mx = parseInt(e.clientX - $(e.target).offset().left);
+        my = parseInt(e.pageY - $(e.target).offset().top) - 2;
+    }
+    //console.log(e.pageY, $(e.target).offset().top);
+    mxy['x'] = mx;
+    mxy['y'] = my;
+    return mxy;
+}
+
+
+/**
+ * ImageMap Model is the root model, and contains all the "areas" which contain all
+ * the "points".
+ * 
+ * It also stores state, for example which model is currently selected
+ */
+ImageMap = Backbone.RelationalModel.extend({
+    relations: [{
+            type: Backbone.HasMany,
+            key: 'areas',
+            relatedModel: 'Area',
+            reverseRelation: {
+                key: 'mappa'
+            },
+            collectionType: 'Areas'
+        }],
+    subModelTypes: {
+        'polygon': 'Polygon',
+        'rect': 'Rectangle',
+        'circle': 'Circle'
+    },
+    subModelTypeAttribute: 'shape',
+    defaults: {
+        "name": "imagemap"
+    },
+    getMapTag: function() {
+        var template = '';
+        template += '<map name="<%= name %>">\n';
+        template += '<% _.each(areas, function(a) { %><%= a %><% }); %>';
+        template += '</map>';
+        return _.template(template, this.getViewModel());
+    },
+    getViewModel: function() {
+        var model = {
+            name: this.get('name')
+        };
+        model.areas = this.get('areas').map(function(area) {
+            return area.getAreaTag();
+        });
+        return model;
+    }
+});
+
+
+Area = Backbone.RelationalModel.extend({
+    relations: [{
+            type: Backbone.HasMany,
+            key: 'points',
+            relatedModel: 'Point',
+            collectionType: 'Points',
+            reverseRelation: {
+                key: 'area'
+            }
+        }],
+    defaults: {
+        selected: false,
+        shape: null,
+        href: null,
+        alt: null,
+        attrs: []
+    },
+    updateOffset: function(nx, ny) {
+        var dx = nx - this.offsetX,
+                dy = ny - this.offsetY;
+        this.get('points').forEach(function(point) {
+            point.set('x', point.get('x') + dx);
+            point.set('y', point.get('y') + dy);
+        });
+        this.offsetX = nx;
+        this.offsetY = ny;
+    },
+    getAreaTag: function() {
+        var template = '',
+                model = this.getViewModel();
+        template += '  <area\n';
+        template += '    shape="<%=shape%>"\n';
+        template += '    href="<%=href%>"\n';
+        template += '    alt="<%=alt%>"\n';
+        template += '    coords="<%=coords%>"\n';
+        template += '<% _.each(attrs, function(a) { %>    <%= a.key %>="<%= a.value %>"\n<% }); %>';
+        template += '  />\n';
+        return _.template(template, model);
+    },
+    getCoords: function() {
+        //console.log(this.get('points'));
+        return this.get('points').reduce(function(memo, coord, index, list) {
+            var val = memo + coord.get('x') + ',' + coord.get('y');
+            if (index < list.length - 1) {
+                val += ',';
+            }
+            //console.log(coord.get('x'));
+            return val;
+        }, '');
+    },
+    getViewModel: function() {
+        var model = {
+            shape: this.get('shape'),
+            href: this.get('href'),
+            alt: this.get('alt'),
+            attrs: this.get('attrs'),
+            coords: this.getCoords()
+        };
+        // @todo - this doesn't work?
+        // if ( this.get('selected') ) {
+        //     model.attrs['data-selected'] = true;
+        // }
+        return model;
+    },
+    deleteMousedOverPoint: function(mx, my, w, h) {
+        var isMousedOverPoint = this.isMousedOverPoint;
+        var point = this.get('points').find(function(point) {
+            return isMousedOverPoint(mx, my, point, w, h);
+        });
+        if (point) {
+            this.get('points').remove(point);
+        }
+        if (this.get('points').length === 0 && this.collection && this.collection.remove) {
+            this.collection.remove(this);
+        }
+    },
+    isMousedOverPoint: function(mx, my, point, w, h) {
+        var x, y;
+        if (point.x) {
+            x = point.x;
+            y = point.y;
+        } else if (point.get) {
+            x = point.get('x');
+            y = point.get('y');
+        } else {
+            return false;
+        }
+        return (
+                mx >= x - w / 2 && mx <= x + w / 2 &&
+                my >= y - h / 2 && my <= y + h / 2
+                );
+    },
+    isMousedOver: function(mx, my) {
+        var i, j, moused_over = false;
+        var points = this.get('points').toJSON();
+        for (i = 0, j = points.length - 1; i < points.length; j = i++)
+        {
+            if (((points[i].y > my) != (points[j].y > my)) && (mx < (points[j].x - points[i].x) * (my - points[i].y) / (points[j].y - points[i].y) + points[i].x))
+            {
+                moused_over = !moused_over;
+            }
+        }
+        if (!moused_over) {
+            var isMousedOverPoint = this.isMousedOverPoint;
+            points.forEach(function(point) {
+                if (isMousedOverPoint(mx, my, point, 5, 5)) {
+                    moused_over = true;
+                }
+            });
+        }
+        return moused_over;
+    }
+});
+
+
+/**
+ * The collection of areas inside the Map
+ */
+Areas = Backbone.Collection.extend({
+    model: Area
+});
+
+
+
+
+Polygon = Area.extend({
+    defaults: {
+        shape: 'polygon'
+    }
+});
+
+Rectangle = Area.extend({
+    defaults: {
+        shape: 'rect'
+    }
+});
+
+Circle = Area.extend({
+    defaults: {
+        shape: 'circle',
+        radius: null
+    },
+    getCoords: function() {
+        var val = Area.prototype.getCoords.apply(this);
+        val += ',' + this.get('radius');
+        return val;
+    }
+});
+
+
+
+
+/**
+ * The Point Model, for an individual Point (used by Polygons)
+ */
+Point = Backbone.RelationalModel.extend({
+    defaults: {
+        x: null,
+        y: null
+    }
+});
+
+Points = Backbone.Collection.extend({
+    model: Point,
+    getPoints: function() {
+        return this.models.map(function(point) {
+            //console.log(point);
+            return {x: point.get('x'), y: point.get('y')};
+        });
+    }
+});
+
+var TOOL_ARROW = 'arrow';
+var TOOL_DELETE = 'delete';
+var TOOL_POLYGON = 'polygon';
+
+
+
+MapView = Backbone.View.extend({
+    events: {
+        'mousemove canvas': 'mouseMove',
+        'mousedown canvas': 'mouseDown',
+        'mouseup canvas': 'mouseUp',
+        'dragover': 'dragOver',
+        'dragenter': 'dragOver',
+        // 'drop': 'drop',
+        'change input': 'changeTool',
+        'click .selected-true button': 'deleteArea',
+        'keyup .mappa-list input[name=href]': 'updateAttribute',
+        'keyup .mappa-list input[name=alt]': 'updateAttribute'
+    },
+    initialize: function() {
+        // mess with functions first
+        _.bindAll(this, 'onLoadImage', 'renderArea', 'rafRender', 'createAreaView', 'clearCanvas', 'drop');
+        this.mouseMove = _.throttle(this.mouseMove, 1000 / 60);
+        // this.updateHTML = _.throttle(this.updateHTML, 1000);
+        this.current_tool = TOOL_ARROW;
+        this.model = new ImageMap();
+        this.canvas = this.el.querySelector('canvas');
+        this.context = this.canvas.getContext('2d');
+        this.createAreaViews();
+        this.el.addEventListener('drop', this.drop);
+    },
+    deleteArea: function(e) {
+        var index = parseInt(e.target.parentNode.getAttribute('data-index'), 10);
+        console.log(index);
+        this.model.get('areas').at(index).destroy();
+        this.render();
+    },
+    dragOver: function(e) {
+        e.preventDefault();
+        this.$el.addClass('hover');
+        return false;
+    },
+    dragEnter: function(e) {
+        e.preventDefault();
+        this.$el.addClass('hover');
+        return false;
+    },
+    dragEnd: function(e) {
+        this.$el.removeClass('hover');
+        return false;
+    },
+    drop: function(e) {
+        this.$el.removeClass('hover');
+        e.preventDefault();
+        if (!e.dataTransfer.files.length) {
+            return;
+        }
+        var acceptable = ['image/jpg', 'image/png', 'image/gif', 'image/webm'];
+        if (acceptable.indexOf(e.dataTransfer.files[0].type) === -1) {
+            return;
+        }
+        var file_reader = new FileReader();
+        var image = this.image;
+        file_reader.onload = function(e) {
+            image.src = e.target.result;
+        };
+        file_reader.readAsDataURL(e.dataTransfer.files[0]);
+        return false;
+    },
+    updateAttribute: function(e) {
+        var input = e.target;
+        var index = parseInt(input.parentNode.parentNode.getAttribute('data-index'), 10);
+        console.log(index);
+        this.model.get('areas').at(index).set(input.getAttribute('name'), input.value);
+        this.render(true);
+    },
+    updateHTML: function() {
+        var contents = this.model.getMapTag();
+        this.$('textarea').val(contents);
+        if (!this.dont_render_list) {
+            this.$('.mappa-list').html(this.getList());
+        }
+    },
+    getList: function() {
+        var list_template = '';
+        list_template += '<% _(areas).each(function(area, index) { %>';
+        list_template += '<li data-index="<%= index %>" class="selected-<%= area.selected %>">';
+        list_template += '<button class="delete">Delete</button> ';
+        list_template += '<span class="shape"><%= area.shape %></span> ';
+        list_template += '<label>href: <input name="href" value="<%= area.href %>" /></label> ';
+        list_template += '<label>alt: <input name="alt" value="<%= area.alt %>" /></label>';
+        list_template += '</li>';
+        list_template += '<% }); %>';
+        var html = _.template(list_template, this.model.toJSON());
+        return html;
+    },
+    onLoadImage: function() {
+        this.canvas.width = this.image.width;
+        this.canvas.height = this.image.height;
+        this.$('textarea').css('height', this.image.height + 'px');
+        this.render();
+    },
+    loadImage: function(url) {
+        this.image_url = url;
+        this.image = new Image();
+        this.image.onload = this.onLoadImage;
+        this.image.src = url;
+    },
+    createAreaViews: function() {
+        if (!this.area_views) {
+            this.area_views = [];
+        }
+        this.model.get('areas').forEach(this.createAreaView);
+    },
+    createAreaView: function(area) {
+        var area_view;
+        switch (area.get('shape')) {
+            case 'polygon':
+                area_view = new PolygonView({model: area});
+                break;
+            case 'rect':
+                area_view = new RectangleView({model: area});
+                break;
+            case 'circle':
+                area_view = new CircleView({model: area});
+                break;
+        }
+        this.area_views.push(area_view);
+    },
+    render: function(dont_render_list) {
+        this.dont_render_list = dont_render_list;
+        if (this.rafId) {
+            //webkitCancelAnimationFrame(this.rafId);
+            cancelAnimFrame(this.rafId);
+        }
+        // this.rafId = webkitRequestAnimationFrame(this.rafRender);
+        this.rafId = requestAnimFrame(this.rafRender);
+    },
+    rafRender: function() {
+        this.updateHTML();
+        this.clearCanvas();
+        this.renderImage();
+        this.renderAreas();
+        this.renderPoints();
+    },
+    clearCanvas: function() {
+        this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    },
+    renderImage: function() {
+        this.context.drawImage(this.image, 0, 0);
+    },
+    renderAreas: function() {
+        var map_view = this;
+        this.area_views.forEach(this.renderArea);
+    },
+    renderArea: function(area_view) {
+        area_view.render(this.context);
+    },
+    renderPoints: function() {
+        var context = this.context;
+        this.area_views.forEach(function(area_view) {
+            if (area_view.model.get('selected') || area_view.model.highlighted) {
+                area_view.model.get('points').forEach(function(point, index, list) {
+                    if (index === 0) {
+                        context.fillStyle = '#f00';
+                    } else if (index === list.length - 1) {
+                        context.fillStyle = '#000';
+                    } else {
+                        context.fillStyle = '#0ff';
+                    }
+                    var w = 5, h = 5,
+                            x = point.get('x') - w / 2,
+                            y = point.get('y') - h / 2;
+                    context.fillRect(x, y, w, h);
+                    context.closePath();
+                });
+            } /*else if ( area_view.model.highlighted ) {
+             area_view.model.get('points').forEach(function(point) {
+             context.fillStyle = '#0ff';
+             var w = 5, h = 5,
+             x = point.get('x') - w/2,
+             y = point.get('y') - h/2;
+             context.fillRect(x, y, w, h);
+             context.closePath();
+             });
+             }*/
+        });
+    },
+    mouseMove: function(e) {
+        var map_view = this;
+        var mxy = getOffsets(e);
+        e.offsetX = mxy['x'];
+        e.offsetY = mxy['y'];
+        if (this.moving_point) {
+            this.moving_point.set('x', e.offsetX);
+            this.moving_point.set('y', e.offsetY);
+        } else if (this.moving_view) {
+            this.moving_view.model.updateOffset(e.offsetX, e.offsetY);
+        }
+        this.area_views.forEach(function(area_view, index) {
+            var moused_over = area_view.model.isMousedOver(e.offsetX, e.offsetY);
+            area_view.model.highlighted = moused_over;
+        });
+        this.render();
+    },
+    mouseDown: function(e) {
+        var map_view = this,
+                moving_view, moving_point;
+        //console.log('Drawing.');
+        var mxy = getOffsets(e);
+        //console.log(mxy);
+        var mx = mxy['x'];
+        var my = mxy['y'];
+
+        //console.log(parseInt(e.clientX - $(e.target).offset().left));
+        if (this.current_tool === TOOL_ARROW) {
+            this.area_views.forEach(function(area_view, index) {
+                area_view.model.get('points').forEach(function(point) {
+                    if (area_view.model.isMousedOverPoint(mx, my, point, 5, 5)) {
+                        moving_view = area_view;
+                        moving_point = point;
+                    }
+                });
+                if (!map_view.moving_view) {
+                    var moused_over = area_view.model.isMousedOver(mx, my);
+                    area_view.model.set('selected', moused_over);
+                    if (moused_over) {
+                        moving_view = area_view;
+                        area_view.model.offsetX = mx;
+                        area_view.model.offsetY = my;
+                    }
+                }
+            });
+            map_view.moving_view = moving_view;
+            map_view.moving_point = moving_point;
+            e.target.style.cursor = 'move';
+            this.render();
+        }
+        return false;
+    },
+    mouseUp: function(e) {
+        var mxy = getOffsets(e);
+        e.offsetX = mxy['x'];
+        e.offsetY = mxy['y'];
+        if (this.adding_view && this.current_tool === TOOL_POLYGON) {
+            this.adding_view.model.get('points').add({
+                x: e.offsetX,
+                y: e.offsetY
+            });
+            this.render();
+        } else if (this.current_tool === TOOL_POLYGON) {
+            var area = new Polygon({points: [{x: e.offsetX, y: e.offsetY}], selected: true});
+            var area_view = new PolygonView({model: area});
+            this.model.get('areas').add(area);
+            this.area_views.push(area_view);
+            this.adding_view = area_view;
+            this.render();
+        } else if (this.adding_view && this.current_tool === TOOL_DELETE) {
+            this.adding_view.model.deleteMousedOverPoint(e.offsetX, e.offsetY, 5, 5);
+            this.render();
+        } else {
+            this.adding_view = this.moving_view;
+        }
+        this.moving_view = null;
+        this.moving_point = null;
+        e.target.style.cursor = '';
+    },
+    changeTool: function(e) {
+        if (e.target.checked) {
+            $('.mappa-toolbars label').removeClass();
+            $(e.target).parent().addClass('active');
+            this.current_tool = e.target.value;
+            //console.log(this.current_tool);
+        }
+    }
+});
+
+AreaView = Backbone.View.extend({
+    contextAttributesUnselected: {
+        fillStyle: 'rgba(0, 255, 255, 0.2)',
+        strokeStyle: 'rgba(0, 255, 255, 0)',
+        lineWidth: 0
+    },
+    contextAttributesSelected: {
+        fillStyle: 'rgba(0, 255, 255, 0.5)',
+        strokeStyle: '#000',
+        lineWidth: 1
+    },
+    setupContext: function(context) {
+        var r = (this.model.get('selected')) ?
+                this.contextAttributesSelected :
+                this.contextAttributesUnselected;
+
+        this.applyContextAttributes(context, r);
+
+        return r;
+    },
+    applyContextAttributes: function(context, attrs) {
+        _(attrs).each(function(val, key) {
+            context[key] = val;
+        });
+    }/*,
+     isMousedOver: function(mx, my) {
+     return this.model.isMousedOver(mx, my);
+     },
+     isMousedOverPoint: function(mx, my, point, w, h) {
+     return this.model.isMousedOverPoint(mx, my, point, w, h);
+     }*/
+});
+PolygonView = AreaView.extend({
+    render: function(context) {
+        var points = this.model.get('points').getPoints();
+        var r = this.setupContext(context);
+
+        if (!points[0]) {
+            return;
+        }
+        context.moveTo(points[0].x, points[0].y);
+        context.beginPath();
+        points.forEach(function(point, index) {
+            if (!index)
+                return;
+            context.lineTo(point.x, point.y);
+        });
+        context.lineTo(points[0].x, points[0].y);
+        context.closePath();
+        context.fill();
+        context.stroke();
+    }
+});
+
+mapview = new MapView({el: '.mappa'});
+mapview.loadImage('img/default.png');
+$('.move-poly input').prop('checked', true);
