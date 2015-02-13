@@ -25,4 +25,9 @@ class Travel extends CI_Controller {
         $this->load->view('template/footer');
     }
 
+    function getSections() {
+        $this->load->model('design_model');
+        return $this->design_model->getSections();
+    }
+
 }

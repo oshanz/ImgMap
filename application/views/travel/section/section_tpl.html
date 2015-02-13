@@ -1,0 +1,17 @@
+<h2 style="width: 100%;margin: 0 auto;color: #00B2EE;text-align: center">Section Contents</h2>
+<table class="table">
+    <%
+    _.each(list,function(img,i){
+    var mod = i%4;
+    if(mod == 0){//new tr
+    print('<tr>');
+        };
+
+
+
+        if(mod == 3){//tr end
+        print('</tr>');
+    }
+    });
+    %>
+</table>
