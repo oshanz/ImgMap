@@ -13,7 +13,10 @@ $sections = $c->getSections();
     };
 </script>
 <div class="form">
+    <ul id="breadcrumb" class="breadcrumb"></ul>
+    <div id="form">
 
+    </div>
 </div>
 <script data-main="<?php echo base_url('application/views/travel/index.js') ?>" src="<?php echo base_url('public/js/RequireJS/require.js'); ?>"></script>
 
