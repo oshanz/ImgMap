@@ -360,7 +360,7 @@ insert table class as <table class="table">*/
 }
 
 .table th{ 
-    padding:8px; 
+    padding:4px; 
     border: 1px solid;
     border-color:#f3f1f1
 }

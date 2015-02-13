@@ -29,15 +29,22 @@ require(['backbone', 'jquery', 'underscore'], function(Backbone, $, _) {
         loadContents: function(id_parent) {
             var self = this;
             $.getJSON(URL + 'travel/getContents', {id_parent: id_parent}, function(jsn) {
-                if (0 <= jsn.length) {
-                    alert('Empty');
-                } else if (1 == jsn.length) {
-                    require([], function() {
-
+                self.clearChilds();
+                if (1 == jsn.length) {
+                    require(['last/last_view'], function(lv) {
+                        var alv = new lv({
+                            model: new Backbone.Model(jsn[0])
+                        });
+                        $('.form').html(alv.render());
+                        self.childs.push(alv);
                     });
                 } else {
-                    require([], function() {
-
+                    require(['section/section_view'], function(secv) {
+                        var asc = new secv({
+                            collection: new Backbone.Collection(jsn)
+                        });
+                        $('.form').html(asc.render());
+                        self.childs.push(asc);
                     });
                 }
             });

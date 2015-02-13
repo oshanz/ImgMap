@@ -23,4 +23,9 @@ class Travel_model extends CI_Model {
         return $this->db->query($sql, array($_GET['id_parent']))->result();
     }
 
+    function getIt() {
+        $sql = 'SELECT id_equipment,description,level,url FROM `equipment` WHERE `id_equipment`= ?  AND `status` = 1';
+        return $this->db->query($sql, array($_GET['id_parent']))->result();
+    }
+
 }

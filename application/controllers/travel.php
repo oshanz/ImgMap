@@ -33,6 +33,9 @@ class Travel extends CI_Controller {
     function getContents() {
         $this->load->model('travel_model');
         $r = $this->travel_model->getContents();
+        if (empty($r)) {
+            $r = $this->travel_model->getIt();
+        }
         echo json_encode($r);
     }
 
