@@ -13,14 +13,13 @@ class Login extends CI_Controller {
 
     //put your code here
     function index() {
-        $this->load->view('template/header');
-        if (!$this->session->userdata('login_state')) {
-            $this->load->view('login');
+        if ($this->session->userdata('login_state')) {
+            redirect(base_url('design'));
         } else {
-            $this->load->view('template/menu');
-            $this->load->view('dashbord/index');
+            $this->load->view('template/header');
+            $this->load->view('login');
+            $this->load->view('template/footer');
         }
-        $this->load->view('template/footer');
     }
 
     function checkAuth() {
