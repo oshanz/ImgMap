@@ -10,6 +10,7 @@ require(['backbone', 'jquery', 'underscore'], function(Backbone, $, _) {
         },
         childs: [],
         index: function() {
+            this.clearChilds();
             var self = this;
             require(['section/section_view'], function(sv) {
                 var asv = new sv({

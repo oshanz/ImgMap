@@ -16,7 +16,7 @@ class design_model extends CI_Model {
     //put your code here
 
     function getSections() {
-        $sql = 'SELECT id_equipment,description,level FROM `equipment` WHERE `id_parent` IS NULL';
+        $sql = 'SELECT id_equipment,description,level,url FROM `equipment` WHERE `id_parent` IS NULL';
         return $this->db->query($sql)->result();
     }
 

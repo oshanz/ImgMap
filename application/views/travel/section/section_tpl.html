@@ -1,14 +1,25 @@
-<h2 style="width: 100%;margin: 0 auto;color: #00B2EE;text-align: center">Section Contents</h2>
-<table class="table">
+<h2  style="width: 100%;margin: 0 auto;color: #00B2EE;text-align: center;padding: 5px">Section Contents</h2>
+<table width='100%' border='1' style="border-collapse: collapse;border-color: black">
     <%
     _.each(list,function(img,i){
     var mod = i%4;
     if(mod == 0){//new tr
     print('<tr>');
         };
-
-
-
+        %>
+        <td width='25%' valign='top'>
+            <table width='100%'>
+                <tr>
+                    <td style="text-align: center"><%= img.description %></td>
+                </tr>
+                <tr>
+                    <td style="text-align: center">
+                        <img src="<%= URL + img.url %>" style="max-width: 100%;max-height: 200px;cursor: pointer"/>
+                    </td>
+                </tr>
+            </table>
+        </td>
+        <%
         if(mod == 3){//tr end
         print('</tr>');
     }
