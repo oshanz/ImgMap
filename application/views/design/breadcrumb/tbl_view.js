@@ -25,6 +25,9 @@ define(function(require) {
             this.breadcrumb.model.set(model.toJSON());
             this.breadcrumb.model.set({time: new Date().getTime()});
             $('#id_parent').val(model.get('id_equipment'));
+            if (model.get('url')) {
+                $('#preview').attr('src', URL + model.get('url'));
+            }
             var level = $('#level');
             level.val(Number(level.val()) + 1);
             this.collection.fetch({

@@ -40,6 +40,9 @@ require(['backbone', 'jquery'], function(Backbone, $) {
             if (!this.tbl_view) {
                 window.location.href = URL + 'design';
             }
+            $.getJSON(URL + 'travel/getIt', {id_parent: id_equipment}, function(jsn) {
+                $('#preview').attr('src', URL + jsn[0].url || 'public/images/awaiting-image.png');
+            });
             this.tbl_view.loadPrevious(id_equipment);
             if (id_equipment > 0) {
                 $('#id_parent').val(id_equipment);

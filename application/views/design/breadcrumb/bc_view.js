@@ -21,6 +21,7 @@ define(function(require) {
             var gt = this.$('li').index($(e.currentTarget).parent('li'));
             $('#level').val(Number(gt) + 1);
             this.$('li:gt(' + gt + ')').remove();
+            $('#preview').attr('src', URL + 'public/images/awaiting-image.png');
         },
         changeHierarchy: function() {
             this.$el.append(this.template(this.model.toJSON()));

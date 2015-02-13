@@ -43,4 +43,10 @@ class Travel extends CI_Controller {
         echo json_encode($r);
     }
 
+    function getIt() {
+        $this->load->model('travel_model');
+        $r = $this->travel_model->getIt();
+        echo json_encode($r);
+    }
+
 }

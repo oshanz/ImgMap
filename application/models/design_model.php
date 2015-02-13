@@ -21,7 +21,7 @@ class design_model extends CI_Model {
     }
 
     function getEquipments() {
-        $sql = 'SELECT id_equipment,description,level FROM `equipment` WHERE `id_parent`=' . $_GET['id_parent'];
+        $sql = 'SELECT id_equipment,description,level,url FROM `equipment` WHERE `id_parent`=' . $_GET['id_parent'];
         return $this->db->query($sql)->result();
     }
 
