@@ -28,7 +28,8 @@ class Design extends CI_Controller {
     function addEquipment() {
         $this->load->model('design_model');
         $this->design_model->addEquipment();
-        print_r($_POST);
+        //print_r($_POST);
+        redirect(base_url('design/index'));
         die();
 
         $config['upload_path'] = './uploads/';
@@ -54,7 +55,11 @@ class Design extends CI_Controller {
 
     function getEquipments() {
         $this->load->model('design_model');
-        $eq = $this->design_model->getEquipments();
+        if ($_GET['id_parent'] > 0) {
+            $eq = $this->design_model->getEquipments();
+        } else {
+            $eq = $this->design_model->getSections();
+        }
         echo json_encode($eq);
     }
 

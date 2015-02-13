@@ -7,13 +7,11 @@
 $c = &get_instance();
 $sections = $c->getSections();
 ?>
-
 <script>
     window.oz = {
         sections: <?php echo json_encode($sections); ?>
     };
 </script>
-
 <div class="form">
     <table width="100%" border="0">
         <tr>

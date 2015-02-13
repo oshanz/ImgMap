@@ -40,11 +40,10 @@ require(['backbone', 'jquery'], function(Backbone, $) {
             if (!this.tbl_view) {
                 window.location.href = URL + 'design';
             }
+            this.tbl_view.loadPrevious(id_equipment);
             if (id_equipment > 0) {
-                this.tbl_view.loadPrevious(id_equipment);
                 $('#id_parent').val(id_equipment);
             } else {
-                this.tbl_view.collection.reset(window.oz.sections);
                 $('#id_parent').val('');
             }
         },

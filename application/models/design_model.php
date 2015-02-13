@@ -32,14 +32,27 @@ class design_model extends CI_Model {
             'level' => $_POST['level'],
             'status' => 1,
         );
+        $mainParent;
         if (!$_POST['id_parent']) {//new main section
             $data['id_parent'] = NULL;
             $this->db->insert('equipment', $data);
+            $mainParent = $this->db->insert_id();
         } else {//child of someone
             $this->db->update('equipment', $data, array('id_parent' => $_POST['id_parent']));
+            $mainParent = $_POST['id_parent'];
         }
-        foreach ($_POST['subLable'] as $sub) {
-            
+        $subs = array();
+        for ($index = 0; $index < count($_POST['subLable']); $index++) {
+            $subs [] = array(
+                'id_parent' => $mainParent,
+                'description' => $_POST['subLable'][$index],
+                'url' => '',
+                'level' => 1 + $_POST['level'],
+                'status' => 1,
+            );
+        }
+        if (!empty($subs)) {
+            $this->db->insert_batch('equipment', $subs);
         }
     }
 
