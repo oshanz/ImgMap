@@ -6,7 +6,8 @@ require(['backbone', 'jquery', 'underscore'], function(Backbone, $, _) {
 
     var Router = Backbone.Router.extend({
         routes: {
-            '': 'index'
+            '': 'index',
+            'section/:id_parent': 'loadContents'
         },
         childs: [],
         index: function() {
@@ -23,6 +24,22 @@ require(['backbone', 'jquery', 'underscore'], function(Backbone, $, _) {
         clearChilds: function() {
             _.each(this.childs, function(v) {
                 v.remove();
+            });
+        },
+        loadContents: function(id_parent) {
+            var self = this;
+            $.getJSON(URL + 'travel/getContents', {id_parent: id_parent}, function(jsn) {
+                if (0 <= jsn.length) {
+                    alert('Empty');
+                } else if (1 == jsn.length) {
+                    require([], function() {
+
+                    });
+                } else {
+                    require([], function() {
+
+                    });
+                }
             });
         }
     });

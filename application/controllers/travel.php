@@ -30,4 +30,10 @@ class Travel extends CI_Controller {
         return $this->design_model->getSections();
     }
 
+    function getContents() {
+        $this->load->model('travel_model');
+        $r = $this->travel_model->getContents();
+        echo json_encode($r);
+    }
+
 }
