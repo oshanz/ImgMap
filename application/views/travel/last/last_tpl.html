@@ -1,8 +1,5 @@
 <table width="100%">
     <tr>
-        <td></td>
-    </tr>
-    <tr>
         <td><img src="<%= URL + url %>" style="max-width: 100%;max-height: 600px" usemap="#ozMap"/></td>
     </tr>
     <%
@@ -45,7 +42,7 @@
     <%
     _.each(map,function(m){
     %>
-    <area shape="<%= m.shape %>" coords="<%= m.coords %>" href="#<%= 'section/'+m.id_equipment %>"/>
+    <area shape="<%= m.shape %>" coords="<%= m.coords %>" href="#<%= 'section/'+m.id_equipment %>" title="<%= m.description %>">
     <%
     });
     %>

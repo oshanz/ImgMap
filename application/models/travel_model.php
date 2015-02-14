@@ -31,7 +31,7 @@ class Travel_model extends CI_Model {
     }
 
     function getImgMaps() {
-        $sql = 'SELECT id_equipment,shape,coords FROM `equipment_map` where map_equipment= ? and status=1';
+        $sql = 'SELECT em.id_equipment,em.shape,em.coords,description FROM `equipment_map` em inner join equipment e on e.id_equipment=em.id_equipment where map_equipment= ? and e.status=1 and em.status=1';
         return $this->db->query($sql, array($_GET['id_parent']))->result();
     }
 

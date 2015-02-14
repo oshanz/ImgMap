@@ -54,7 +54,8 @@ requirejs.config({
         timepicker : URL + 'public/js/jquery.ui.timepicker',
         relational : URL + 'public/js/backbone-relational',
         maphilight : URL + 'public/js/jquery.maphilight.min',
-        rwdImageMaps : URL + 'public/js/jquery.rwdImageMaps.min'
+        rwdImageMaps : URL + 'public/js/jquery.rwdImageMaps.min',
+        mapster : URL + 'public/js/jquery.imagemapster-mod'
     },
     shim: {
         markerwithlabel: {

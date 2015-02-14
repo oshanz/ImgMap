@@ -9,9 +9,26 @@ define(function(require) {
         template: tpl,
         render: function() {
             this.$el.html(this.template(this.model.toJSON()));
-            this.$('img').maphilight({stroke: false, fillColor: '009DDF', fillOpacity: 1});
-            this.$('img[usemap]').rwdImageMaps();
+            var self = this;
+            require(['mapster'], function() {//maphilight,rwdImageMaps
+                //self.$('img').maphilight();
+                // self.$('img[usemap]').rwdImageMaps();
+                self.$('img').mapster({
+                    fillColor: '00FFFF',
+                    fillOpacity: .1,
+                    strokeColor: '00008B',
+                    stroke: true
+                });
+                self.$('area').mapster('set', true, {
+                    fillColor: '00FFFF',
+                    fillOpacity: .1,
+                    stroke: false
+                });
+            });
             return this.el;
+        },
+        events: {
+            'mouseover area': 'markall'
         }
     });
 
