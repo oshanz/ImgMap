@@ -9,6 +9,8 @@ define(function(require) {
         template: tpl,
         render: function() {
             this.$el.html(this.template(this.model.toJSON()));
+            this.$('img').maphilight({stroke: false, fillColor: '009DDF', fillOpacity: 1});
+            this.$('img[usemap]').rwdImageMaps();
             return this.el;
         }
     });

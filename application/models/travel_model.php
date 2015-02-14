@@ -25,6 +25,13 @@ class Travel_model extends CI_Model {
 
     function getIt() {
         $sql = 'SELECT id_equipment,description,level,url FROM `equipment` WHERE `id_equipment`= ?  AND `status` = 1';
+        $it = $this->db->query($sql, array($_GET['id_parent']))->row_array();
+        $it['map'] = $this->getImgMaps();
+        return array($it);
+    }
+
+    function getImgMaps() {
+        $sql = 'SELECT id_equipment,shape,coords FROM `equipment_map` where map_equipment= ? and status=1';
         return $this->db->query($sql, array($_GET['id_parent']))->result();
     }
 

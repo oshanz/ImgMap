@@ -62,7 +62,7 @@ require(['backbone', 'jquery', 'underscore'], function(Backbone, $, _) {
                     window.oz.goBack = false;
                 }
                 if (1 == jsn.length) {
-                    require(['last/last_view'], function(lv) {
+                    require(['last/last_view','maphilight','rwdImageMaps'], function(lv) {
                         self.lastC = new Backbone.Model(jsn[0]);
                         var alv = new lv({
                             model: self.lastC
