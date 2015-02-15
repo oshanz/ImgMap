@@ -10,20 +10,20 @@ define(function(require) {
         render: function() {
             this.$el.html(this.template(this.model.toJSON()));
             var self = this;
-            require(['mapster'], function() {//maphilight,rwdImageMaps
+            require(['maphilight', 'rwdImageMaps'], function() {//mapster,maphilight,rwdImageMaps
                 //self.$('img').maphilight();
-                // self.$('img[usemap]').rwdImageMaps();
-                self.$('img').mapster({
-                    fillColor: '00FFFF',
-                    fillOpacity: .1,
-                    strokeColor: '00008B',
-                    stroke: true
-                });
-                self.$('area').mapster('set', true, {
-                    fillColor: '00FFFF',
-                    fillOpacity: .1,
-                    stroke: false
-                });
+                self.$('img[usemap]').rwdImageMaps();
+//                self.$('img').mapster({
+//                    fillColor: '00FFFF',
+//                    fillOpacity: .1,
+//                    strokeColor: '00008B',
+//                    stroke: true
+//                });
+//                self.$('area').mapster('set', true, {
+//                    fillColor: '00FFFF',
+//                    fillOpacity: .1,
+//                    stroke: false
+//                });
             });
             return this.el;
         },

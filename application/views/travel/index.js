@@ -52,6 +52,9 @@ require(['backbone', 'jquery', 'underscore'], function(Backbone, $, _) {
                             return id_parent == ob.get('id_equipment');
                         });
                     }
+                    if (1 == jsn.length) {
+                        f = new Backbone.Model(jsn[0]);
+                    }
                     self.bc.model.set({
                         src: id_parent,
                         title: f.get('description'),
