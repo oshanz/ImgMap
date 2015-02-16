@@ -36,4 +36,10 @@ class Parts extends CI_Controller {
         echo json_encode(array('id_equipment' => $id));
     }
 
+    function autoParts() {
+        $this->load->model('part_model');
+        $r = $this->part_model->autoParts();
+        echo json_encode($r);
+    }
+
 }

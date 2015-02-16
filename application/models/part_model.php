@@ -32,4 +32,9 @@ class part_model extends CI_Model {
         return $this->db->insert_id();
     }
 
+    function autoParts() {
+        $sql = "SELECT id_equipment as v,description as label FROM `equipment` WHERE `id_parent`=87 and description like ?";
+        return $this->db->query($sql, array('%' . $_GET['term'] . '%'))->result();
+    }
+
 }
