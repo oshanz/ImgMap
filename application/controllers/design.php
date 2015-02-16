@@ -26,26 +26,24 @@ class Design extends CI_Controller {
     }
 
     function addEquipment() {
-        $this->load->model('design_model');
-        $this->design_model->addEquipment();
-        //print_r($_POST);
-        redirect(base_url('design/index'));
-        die();
-
         $config['upload_path'] = './uploads/';
         $config['allowed_types'] = 'gif|jpg|png';
 //        $config['max_size'] = '5120';
         $this->load->library('upload', $config);
-        $field_name = "asdasd";
+        $field_name = "img";
         if ($this->upload->do_upload($field_name)) {
             $data = array('upload_data' => $this->upload->data());
-            print_r($data);
+            $imgName = $data['upload_data']['orig_name'];
 //            $this->load->view('upload_success', $data);
         } else {
             $error = array('error' => $this->upload->display_errors());
             print_r($error);
+          //  die();
 //            $this->load->view('upload_form', $error);
         }
+        $this->load->model('design_model');
+        $this->design_model->addEquipment($imgName);
+        redirect(base_url('design/index'));
     }
 
     function getSections() {
