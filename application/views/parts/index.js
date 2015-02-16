@@ -10,7 +10,9 @@ require(['backbone'], function(Backbone) {
         },
         index: function() {
             var col = new Backbone.Collection(window.oz.parts);
-            require(['table/table_view'], function(tv) {
+            require(['main/view', 'table/table_view'], function(mv, tv) {
+                var amv = new mv();
+                $('.form').html(amv.render());
                 var atv = new tv({
                     collection: col
                 });
