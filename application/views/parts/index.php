@@ -13,32 +13,7 @@ $parts = $c->getParts();
     };
 </script>
 <div class="form">
-    <table width="100%" border="0">
-        <tr>
-            <td id="view" valign="top" width="50%">
-
-            </td>
-            <td id="addUP" valign="top" style="">
-                <table>
-                    <tr>
-                        <td>Part. No</td>
-                        <td>:</td>
-                        <td><input type="text" id="part_no"/></td>
-                    </tr>
-                    <tr>
-                        <td>Part Name</td>
-                        <td>:</td>
-                        <td><input type="text" id="part_name"/></td>
-                    </tr>
-                    <tr>
-                        <td colspan="3">
-                            <input type="button" value="Save" id="save" style="float: right;"/>
-                        </td>
-                    </tr>
-                </table>
-            </td>
-        </tr>
-    </table>
+  
 </div>
 
 <script data-main="<?php echo base_url('application/views/parts/index.js') ?>" src="<?php echo base_url('public/js/RequireJS/require.js'); ?>"></script>

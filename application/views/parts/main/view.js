@@ -1,7 +1,16 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+"use strict";
 
+define(function(require) {
+    var _ = require('underscore'),
+            Backbone = require('backbone'),
+            tpl = _.template(require('text!main/tpl.html'));
 
+    return Backbone.View.extend({
+        template: tpl,
+        render: function() {
+            this.$el.html(this.template());
+            return this.el;
+        }
+    });
+
+});
