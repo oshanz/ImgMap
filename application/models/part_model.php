@@ -9,25 +9,18 @@
 /**
  * @author Waruna Oshan Wisumperuma
  * @contact warunaoshan@gmail.com
- * Feb 16, 2015 2:17:25 PM
+ * Feb 16, 2015 4:26:25 PM
  */
-class Parts extends CI_Controller {
+class part_model extends CI_Model {
 
     //put your code here
     public function __construct() {
         parent::__construct();
     }
 
-    function index() {
-        $this->load->view('template/header');
-        $this->load->view('template/menu');
-        $this->load->view('parts/index');
-        $this->load->view('template/footer');
-    }
-
     function getParts() {
-        $this->load->model('part_model');
-        return $this->part_model->getParts();
+        $sql = "SELECT id_equipment,description FROM `equipment` WHERE `id_parent`=87";
+        return $this->db->query($sql)->result();
     }
 
 }
