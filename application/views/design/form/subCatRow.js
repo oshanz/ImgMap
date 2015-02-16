@@ -3,7 +3,7 @@
 define(function(require) {
     var _ = require('underscore'),
             Backbone = require('backbone'),
-            tpl = _.template("<tr><td><a class='plus_icon'></a></td><td><input name='subLable[]' id='subLable' type='text'/></td><td><input type='button' id='save' value='Save'/></td><td><a class='min_icon'></a></td></tr>");
+            tpl = _.template("<tr><td><a class='plus_icon'></a></td><td><input name='subLable[]' id='subLable' type='text'/></td><td><input name='coords[]' /></td><td><input type='button' id='save' value='Save'/></td><td><a class='min_icon'></a></td></tr>");
 
     return Backbone.View.extend({
         template: tpl,

@@ -41,18 +41,41 @@ class design_model extends CI_Model {
             $this->db->update('equipment', $data, array('id_parent' => $_POST['id_parent']));
             $mainParent = $_POST['id_parent'];
         }
+
+//        $subs = array();
+//        for ($index = 0; $index < count($_POST['subLable']); $index++) {
+//            $subs [] = array(
+//                'id_parent' => $mainParent,
+//                'description' => $_POST['subLable'][$index],
+//                'url' => '',
+//                'level' => 1 + $_POST['level'],
+//                'status' => 1,
+//            );
+//        }
+//        if (!empty($subs)) {
+//            $this->db->insert_batch('equipment', $subs);
+//        }
+
         $subs = array();
         for ($index = 0; $index < count($_POST['subLable']); $index++) {
-            $subs [] = array(
+            $this->db->insert('equipment', array(
                 'id_parent' => $mainParent,
                 'description' => $_POST['subLable'][$index],
                 'url' => '',
                 'level' => 1 + $_POST['level'],
                 'status' => 1,
+                    )
+            );
+            $subs [] = array(
+                'map_equipment' => $mainParent,
+                'id_equipment' => $this->db->insert_id(),
+                'shape' => 'poly',
+                'status' => 1,
+                'coords' => $_POST['coords'][$index]
             );
         }
         if (!empty($subs)) {
-            $this->db->insert_batch('equipment', $subs);
+            $this->db->insert_batch('equipment_map', $subs);
         }
     }
 
