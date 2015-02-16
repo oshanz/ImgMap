@@ -24,14 +24,15 @@ define(function(require) {
             'click #save': 'addPart'
         },
         addPart: function() {
-            var a = Backbone.Model.extend({
+            var a = new (Backbone.Model.extend({
                 url: URL + 'parts/savePart'
-            });
-            a = new a();
+            }))();
             a.set({
                 part_no: this.$('#part_no').val(),
                 description: this.$('#part_name').val()
             });
+            this.$('#part_no').val('');
+            this.$('#part_name').val('');
             var self = this;
             a.save(null, {
                 wait: true,
