@@ -484,6 +484,9 @@ nav ul li a {
     text-decoration: none;
     text-align:center;
     font-weight:bold;
+    height: 100%;
+    display: block;
+    line-height: 50px
 }
 
 nav ul ul {

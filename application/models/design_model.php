@@ -1,5 +1,4 @@
 <?php
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -16,7 +15,7 @@ class design_model extends CI_Model {
     //put your code here
 
     function getSections() {
-        $sql = 'SELECT id_equipment,description,level,url FROM `equipment` WHERE `id_parent` IS NULL';
+        $sql = 'SELECT id_equipment,description,level,url FROM `equipment` WHERE `id_parent` IS NULL and status=1';
         return $this->db->query($sql)->result();
     }
 
@@ -59,7 +58,7 @@ class design_model extends CI_Model {
         $subs = array();
         for ($index = 0; $index < count($_POST['subLable']); $index++) {
             $this->db->insert('equipment', array(
-                'id_parent' => $mainParent,
+                'id_parent' => 87, //$mainParent,
                 'description' => $_POST['subLable'][$index],
                 'url' => '',
                 'level' => 1 + $_POST['level'],
@@ -71,7 +70,8 @@ class design_model extends CI_Model {
                 'id_equipment' => $this->db->insert_id(),
                 'shape' => 'poly',
                 'status' => 1,
-                'coords' => $_POST['coords'][$index]
+                'coords' => $_POST['coords'][$index],
+                'apart' => 1
             );
         }
         if (!empty($subs)) {
