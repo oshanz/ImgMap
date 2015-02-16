@@ -36,6 +36,9 @@ class Travel extends CI_Controller {
         } else {
             $this->load->model('travel_model');
             $r = $this->travel_model->getContents();
+            if (1 == count($r)) {
+              //  $r[0]->pmap=  $this->travel_model->getImgMaps();
+            }
             if (empty($r)) {
                 $r = $this->travel_model->getIt();
             }

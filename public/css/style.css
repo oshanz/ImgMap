@@ -380,7 +380,7 @@ insert table class as <table class="table">*/
     background: white;
 }
 
-.table tr:hover {
+.table tr:hover{
     background-color: #B3D1FF;
 }
 

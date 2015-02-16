@@ -28,7 +28,17 @@ define(function(require) {
             return this.el;
         },
         events: {
-            'mouseover area': 'markall'
+            'click area': 'selectTR'
+        },
+        selectTR: function(e) {
+            var val = $(e.currentTarget).attr('data-partID');
+            if (val) {
+                var everyRow = this.$('.table tr');
+                everyRow.css('background-color', 'white');
+                var tr = everyRow.find('td:first-child:contains(' + val + '):first').closest('tr');
+                tr.css('background-color', '#B3D1FF');
+                window.scrollTo(0, tr.offset().top);
+            }
         }
     });
 
