@@ -31,8 +31,9 @@ class Parts extends CI_Controller {
     }
 
     function savePart() {
-        //  print_r($_POST);
-        echo '{}';
+        $this->load->model('part_model');
+        $id = $this->part_model->savePart();
+        echo json_encode(array('id_equipment' => $id));
     }
 
 }

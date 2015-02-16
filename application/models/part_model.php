@@ -23,4 +23,13 @@ class part_model extends CI_Model {
         return $this->db->query($sql)->result();
     }
 
+    function savePart() {
+        $m = json_decode($_POST['model']);
+        $this->db->insert('equipment', array(
+            'description' => $m->description,
+            'id_parent' => 87
+        ));
+        return $this->db->insert_id();
+    }
+
 }

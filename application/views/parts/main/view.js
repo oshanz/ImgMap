@@ -16,6 +16,7 @@ define(function(require) {
                     collection: col
                 });
                 self.$('#view').html(atv.render());
+                window.oz.parts = col;
             });
             return this.el;
         },
@@ -35,7 +36,7 @@ define(function(require) {
             a.save(null, {
                 wait: true,
                 success: function(model, res) {
-                    var col = new Backbone.Collection(window.oz.parts);
+                    var col = window.oz.parts;
                     col.add(model);
                     require(['table/table_view'], function(tv) {
                         var atv = new tv({
