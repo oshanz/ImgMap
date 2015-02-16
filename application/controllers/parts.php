@@ -30,4 +30,9 @@ class Parts extends CI_Controller {
         return $this->part_model->getParts();
     }
 
+    function savePart() {
+        //  print_r($_POST);
+        echo '{}';
+    }
+
 }

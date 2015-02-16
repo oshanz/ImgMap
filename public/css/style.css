@@ -304,7 +304,7 @@ body{
 .form select:focus
 {
     box-shadow: 0 0 5px #43D1AF;
-    padding: 1.5%;
+    /*padding: 1.5%;*/
     border: 1px solid #43D1AF;
 }
 
