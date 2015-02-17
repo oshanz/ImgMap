@@ -38,34 +38,16 @@ class design_model extends CI_Model {
             $this->db->insert('equipment', $data);
             $mainParent = $this->db->insert_id();
         } else {//child of someone
-            $this->db->update('equipment', $data, array('id_parent' => $_POST['id_parent']));
+            $data['id_parent'] = $_POST['id_parent'];
+            $this->db->insert('equipment', $data);
             $mainParent = $_POST['id_parent'];
         }
 
-//        $subs = array();
-//        for ($index = 0; $index < count($_POST['subLable']); $index++) {
-//            $subs [] = array(
-//                'id_parent' => $mainParent,
-//                'description' => $_POST['subLable'][$index],
-//                'url' => '',
-//                'level' => 1 + $_POST['level'],
-//                'status' => 1,
-//            );
-//        }
-//        if (!empty($subs)) {
-//            $this->db->insert_batch('equipment', $subs);
-//        }
-
         $subs = array();
         for ($index = 0; $index < count($_POST['subLable']); $index++) {
-            /* $this->db->insert('equipment', array(
-              'id_parent' => 87, //$mainParent,
-              'description' => $_POST['subLable'][$index],
-              'url' => '',
-              'level' => 1 + $_POST['level'],
-              'status' => 1,
-              )
-              ); */
+            if (0 == $_POST['idr'][$index]) {
+                continue;
+            }
             $subs [] = array(
                 'map_equipment' => $mainParent,
                 'id_equipment' => $_POST['idr'][$index], // $this->db->insert_id(),
