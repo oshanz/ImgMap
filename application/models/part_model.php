@@ -27,7 +27,8 @@ class part_model extends CI_Model {
         $m = json_decode($_POST['model']);
         $this->db->insert('equipment', array(
             'description' => $m->description,
-            'id_parent' => 87
+            'id_parent' => 87,
+            'status' => 1
         ));
         return $this->db->insert_id();
     }
