@@ -40,6 +40,10 @@ require(['backbone', 'jquery', 'underscore'], function(Backbone, $, _) {
             });
         },
         loadContents: function(id_parent) {
+            if (id_parent == -1) {
+                this.index();
+                return;
+            }
             var self = this;
             $.getJSON(URL + 'travel/getContents', {id_parent: id_parent}, function(jsn) {
                 self.clearChilds();
