@@ -3,7 +3,7 @@
         <td><img src="<%= URL + url %>" style="max-width: 100%;max-height: 600px" usemap="#ozMap"/></td>
     </tr>
     <%
-    if(map.length == 0){
+    if(part.length != 0){
     %>
     <tr>
         <td>
@@ -22,46 +22,20 @@
                     </tr>
                 </thead>
                 <tbody>
+                    <%
+                    _.each(part,function(p){
+                    %>
                     <tr>
-                        <td>1</td>
-                        <td>170</td>
-                        <td>Bold Flange</td>
+                        <td><%= p.id_equipment %></td>
+                        <td></td>
+                        <td><%= p.description %></td>
                         <td style="text-align: center">4</td>
                         <td></td>
                         <td></td>
                     </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>240</td>
-                        <td>Ball</td>
-                        <td style="text-align: center">4</td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>49</td>
-                        <td>120</td>
-                        <td>Bolt comp</td>
-                        <td style="text-align: center">4</td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td>160</td>
-                        <td>Bolt Flange</td>
-                        <td style="text-align: center">4</td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>5</td>
-                        <td>250</td>
-                        <td>Flange (water return)</td>
-                        <td style="text-align: center">4</td>
-                        <td></td>
-                        <td></td>
-                    </tr>
+                    <%
+                    });
+                    %>
                 </tbody>
             </table>
         </td>
