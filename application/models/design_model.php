@@ -1,4 +1,5 @@
 <?php
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -57,17 +58,17 @@ class design_model extends CI_Model {
 
         $subs = array();
         for ($index = 0; $index < count($_POST['subLable']); $index++) {
-            $this->db->insert('equipment', array(
-                'id_parent' => 87, //$mainParent,
-                'description' => $_POST['subLable'][$index],
-                'url' => '',
-                'level' => 1 + $_POST['level'],
-                'status' => 1,
-                    )
-            );
+            /* $this->db->insert('equipment', array(
+              'id_parent' => 87, //$mainParent,
+              'description' => $_POST['subLable'][$index],
+              'url' => '',
+              'level' => 1 + $_POST['level'],
+              'status' => 1,
+              )
+              ); */
             $subs [] = array(
                 'map_equipment' => $mainParent,
-                'id_equipment' => $this->db->insert_id(),
+                'id_equipment' => $_POST['idr'][$index], // $this->db->insert_id(),
                 'shape' => 'poly',
                 'status' => 1,
                 'coords' => $_POST['coords'][$index],
