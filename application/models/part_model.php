@@ -19,7 +19,7 @@ class part_model extends CI_Model {
     }
 
     function getParts() {
-        $sql = "SELECT id_equipment,description FROM `equipment` WHERE `id_parent`=87";
+        $sql = "SELECT id_equipment,description,part_no FROM `equipment` WHERE `id_parent`=87";
         return $this->db->query($sql)->result();
     }
 
@@ -28,7 +28,8 @@ class part_model extends CI_Model {
         $this->db->insert('equipment', array(
             'description' => $m->description,
             'id_parent' => 87,
-            'status' => 1
+            'status' => 1,
+            'part_no' => $m->part_no
         ));
         return $this->db->insert_id();
     }
