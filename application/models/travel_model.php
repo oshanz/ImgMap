@@ -37,7 +37,7 @@ class Travel_model extends CI_Model {
     }
 
     function getParts() {
-        $sql = 'SELECT em.id_equipment,em.shape,em.coords,description FROM `equipment_map` em inner join equipment e on e.id_equipment=em.id_equipment where map_equipment= ? and e.status=1 and em.status=1 and em.apart=1';
+        $sql = 'SELECT em.id_equipment,em.shape,em.coords,description,part_no FROM `equipment_map` em inner join equipment e on e.id_equipment=em.id_equipment where map_equipment= ? and e.status=1 and em.status=1 and em.apart=1';
         return $this->db->query($sql, array($_GET['id_parent']))->result();
     }
 
