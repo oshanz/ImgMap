@@ -4,7 +4,8 @@ define(function(require) {
     var _ = require('underscore'),
             Backbone = require('backbone'),
             tpl = _.template(require('text!form/form_tpl.html')),
-            ozImg = require('form/img/ozImg_view');
+            ozImg = require('form/img/ozImg_view'),
+            scR = require('form/subCatRow');
 
     return Backbone.View.extend({
         template: tpl,
@@ -45,12 +46,9 @@ define(function(require) {
             }
         },
         addSubCatRow: function() {
-            var self = this;
-            require(['form/subCatRow'], function(scR) {
-                var ascr = new scR();
-                self.$('#sub_cat_list').append(ascr.render());
-                self.subRows.push(ascr);
-            });
+            var ascr = new scR();
+            this.$('#sub_cat_list').append(ascr.render());
+            this.subRows.push(ascr);
         },
         clearAll: function() {
             _.each(this.subRows, function(sr) {
