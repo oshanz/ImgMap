@@ -5,13 +5,14 @@ define(function(require) {
             Backbone = require('backbone'),
             tpl = _.template(require('text!form/form_tpl.html')),
             ozImg = require('form/img/ozImg_view'),
-            scR = require('form/subCatRow');
+            scR = require('form/subCatRow'),
+            m = new Backbone.Model();
 
     return Backbone.View.extend({
         template: tpl,
         subRows: [],
         childs: [],
-        model: new Backbone.Model(),
+        model: m,
         initialize: function() {
             var reader = new FileReader();
             var self = this;
@@ -52,10 +53,15 @@ define(function(require) {
             var ascr = new scR({model: this.model});
             this.$('#sub_cat_list').append(ascr.render());
             this.subRows.push(ascr);
+            var i = 1 + Number(this.model.get('current_i'));
+            this.model.set({current_i: i});
         },
         clearAll: function() {
             _.each(this.subRows, function(sr) {
                 sr.remove();
+            });
+            _.each(this.childs, function(c) {
+                c.remove();
             });
             this.remove();
         }

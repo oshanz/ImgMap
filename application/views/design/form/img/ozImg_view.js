@@ -49,7 +49,8 @@ define(function(require) {
                 this.ctx.closePath();
                 this.ctx.strokeStyle = "blue";
                 this.ctx.stroke();
-                this.model.set({cur_coord: this.coords});
+                var i = this.model.get('current_i');
+                this.model.set('coords_' + i, this.coords);
             }
         }
     });
