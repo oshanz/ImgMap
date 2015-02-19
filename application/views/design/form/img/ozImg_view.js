@@ -50,7 +50,7 @@ define(function(require) {
                 this.ctx.strokeStyle = "blue";
                 this.ctx.stroke();
                 var i = this.model.get('current_i');
-                this.model.set('coords_' + i, this.coords);
+                this.model.set('coords_' + i, JSON.parse(JSON.stringify(this.coords)));
             }
         }
     });

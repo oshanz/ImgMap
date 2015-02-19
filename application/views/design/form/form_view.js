@@ -50,11 +50,11 @@ define(function(require) {
             }
         },
         addSubCatRow: function() {
+            var i = this.model.has('current_i') ? Number(this.model.get('current_i')) + 1 : 0;
+            this.model.set({current_i: i});
             var ascr = new scR({model: this.model});
             this.$('#sub_cat_list').append(ascr.render());
             this.subRows.push(ascr);
-            var i = 1 + Number(this.model.get('current_i'));
-            this.model.set({current_i: i});
         },
         clearAll: function() {
             _.each(this.subRows, function(sr) {
