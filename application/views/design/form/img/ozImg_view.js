@@ -19,7 +19,7 @@ define(function(require) {
         resetImg: function() {
             var img = this.$('img').get(0), cvs = this.$('canvas');
             this.ctx.clearRect(0, 0, cvs.prop('width'), cvs.prop('height'));
-            this.coords=[];
+            this.coords = [];
             img.src = this.model.get('src');
             img.style.display = 'none';
             var w = img.naturalWidth, //naturalWidth,
@@ -49,6 +49,7 @@ define(function(require) {
                 this.ctx.closePath();
                 this.ctx.strokeStyle = "blue";
                 this.ctx.stroke();
+                this.model.set({cur_coord: this.coords});
             }
         }
     });

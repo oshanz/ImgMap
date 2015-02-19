@@ -10,6 +10,7 @@ define(function(require) {
     return Backbone.View.extend({
         template: tpl,
         subRows: [],
+        childs: [],
         model: new Backbone.Model(),
         initialize: function() {
             var reader = new FileReader();
@@ -22,7 +23,9 @@ define(function(require) {
         render: function() {
             this.$el.html(this.template());
             this.addSubCatRow();
-            this.$('#ozImg').html(new ozImg({model: this.model}).render());//oops not at cleaner
+            var ozi = new ozImg({model: this.model});
+            this.$('#ozImg').html(ozi.render());
+            this.childs.push(ozi);
             return this.el;
         },
         events: {
@@ -46,7 +49,7 @@ define(function(require) {
             }
         },
         addSubCatRow: function() {
-            var ascr = new scR();
+            var ascr = new scR({model: this.model});
             this.$('#sub_cat_list').append(ascr.render());
             this.subRows.push(ascr);
         },
