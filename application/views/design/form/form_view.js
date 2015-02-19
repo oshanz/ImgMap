@@ -3,26 +3,25 @@
 define(function(require) {
     var _ = require('underscore'),
             Backbone = require('backbone'),
-            tpl = _.template(require('text!form/form_tpl.html'));
+            tpl = _.template(require('text!form/form_tpl.html')),
+            ozImg = require('form/img/ozImg_view');
 
     return Backbone.View.extend({
         template: tpl,
         subRows: [],
+        model: new Backbone.Model(),
         initialize: function() {
             var reader = new FileReader();
             var self = this;
             reader.onload = function(e) {
-                var p = self.$('#preview');
-                p.attr('src', e.target.result);//.width(150).height(200)
-                console.log(p.prop('width'));
-                console.log(p.get(0).naturalWidth);
+                self.model.set({src: e.target.result});
             };
             this.fileReader = reader;
         },
         render: function() {
             this.$el.html(this.template());
             this.addSubCatRow();
-            this.cancon = this.$('canvas')[0].getContext("2d");
+            this.$('#ozImg').html(new ozImg({model: this.model}).render());//oops not at cleaner
             return this.el;
         },
         events: {
