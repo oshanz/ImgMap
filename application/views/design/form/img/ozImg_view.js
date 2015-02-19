@@ -17,6 +17,14 @@ define(function(require) {
         resetImg: function() {
             //clear canvas
             this.$('img').attr('src', this.model.get('src'));
+        },
+        events: {
+            'click img': 'coords'
+        },
+        coords: function(e) {
+            var img = $(e.currentTarget).offset();
+            console.log(e.pageY - img.top);
+            console.log(e.pageX - img.left);
         }
     });
 });
