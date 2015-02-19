@@ -26,7 +26,11 @@ define(function(require) {
         },
         events: {
             'change #img': 'loadImg',
+            'click #img': 'clearImg',
             'click .plus_icon': 'addSubCatRow'
+        },
+        clearImg: function() {
+            this.model.set({src: URL + 'public/images/awaiting-image.png'});
         },
         loadImg: function(e) {
             var ele = $(e.currentTarget)[0];
