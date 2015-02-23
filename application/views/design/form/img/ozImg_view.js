@@ -17,9 +17,9 @@ define(function(require) {
             this.listenTo(this.model, 'change:src', this.resetImg);
         },
         resetImg: function() {
+            this.coords = [];
             var img = this.$('img').get(0), cvs = this.$('canvas');
             this.ctx.clearRect(0, 0, cvs.prop('width'), cvs.prop('height'));
-            this.coords = [];
             img.src = this.model.get('src');
             img.style.display = 'none';
             var w = img.naturalWidth, //naturalWidth,
@@ -34,24 +34,31 @@ define(function(require) {
             'click canvas': 'markPoint'
         },
         markPoint: function(e) {
+            var crd = JSON.parse(JSON.stringify(this.coords));
+            this.resetImg();
+            this.coords = crd;
             var img = $(e.currentTarget).offset();
             var y = e.pageY - img.top;
             var x = e.pageX - img.left;
+            this.coords.pop();
             this.coords.push({
                 X: x,
                 Y: y
             });
-            if (this.coords.length > 1) {
-                var pre = this.coords[this.coords.length - 2];
-                this.ctx.beginPath();
-                this.ctx.moveTo(pre.X, pre.Y);
-                this.ctx.lineTo(x, y);
-                this.ctx.closePath();
-                this.ctx.strokeStyle = "blue";
-                this.ctx.stroke();
-                var i = this.model.get('current_i');
-                this.model.set('coords_' + i, JSON.parse(JSON.stringify(this.coords)));
+            this.coords.push(this.coords[0]);
+            //draw path
+            this.ctx.beginPath();
+            this.ctx.moveTo(this.coords[0].X, this.coords[0].Y);
+            for (var i = 1; i < this.coords.length; i++) {
+                this.ctx.lineTo(this.coords[i].X, this.coords[i].Y);
             }
+            this.ctx.closePath();
+            this.ctx.strokeStyle = "blue";
+            this.ctx.stroke();
+            this.ctx.fillStyle = 'rgba(181,229,255,0.5)';
+            this.ctx.fill();
+            var i = this.model.get('current_i');
+            this.model.set('coords_' + i, JSON.parse(JSON.stringify(this.coords)));
         }
     });
 });
