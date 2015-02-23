@@ -40,7 +40,6 @@ define(function(require) {
             var img = $(e.currentTarget).offset();
             var y = e.pageY - img.top;
             var x = e.pageX - img.left;
-            this.coords.pop();
             this.coords.push({
                 X: x,
                 Y: y
@@ -58,6 +57,7 @@ define(function(require) {
             this.ctx.fillStyle = 'rgba(181,229,255,0.5)';
             this.ctx.fill();
             var i = this.model.get('current_i');
+            this.coords.pop();
             this.model.set('coords_' + i, JSON.parse(JSON.stringify(this.coords)));
         }
     });
