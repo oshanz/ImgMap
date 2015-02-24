@@ -34,6 +34,7 @@ define(function(require) {
             'click canvas': 'markPoint'
         },
         markPoint: function(e) {
+            this.coordvalidate();
             var crd = JSON.parse(JSON.stringify(this.coords));
             this.resetImg();
             this.coords = crd;
@@ -59,6 +60,9 @@ define(function(require) {
             var i = this.model.get('current_i');
             this.coords.pop();
             this.model.set('coords_' + i, JSON.parse(JSON.stringify(this.coords)));
+        },
+        coordvalidate: function() {
+
         }
     });
 });
