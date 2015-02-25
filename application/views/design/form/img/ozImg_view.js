@@ -6,13 +6,13 @@ define(function(require) {
 	return Backbone.View.extend({
 		template : tpl,
 		coords : [],
+		hisCroods : [],
 		render : function() {
 			this.$el.html(this.template());
 			this.ctx = this.$('canvas')[0].getContext("2d");
 			return this.el;
 		},
 		initialize : function() {
-			this.hisCroods = [];
 			this.listenTo(this.model, 'change:src', this.resetImg);
 			this.listenTo(this.model, 'change:current_i', this.newMap);
 		},
@@ -63,7 +63,6 @@ define(function(require) {
 			} else {
 				var crd = JSON.parse(JSON.stringify(this.coords));
 				this.resetImg();
-				this.drawPreMaps();
 				this.coords = crd;
 				var img = $(e.currentTarget).offset();
 				var y = e.pageY - img.top;
@@ -76,6 +75,7 @@ define(function(require) {
 			}
 			var i = this.model.get('current_i');
 			this.model.set('coords_' + i, JSON.parse(JSON.stringify(this.coords)));
+			this.drawPreMaps();
 		},
 		coordvalidate : function() {
 			var i = this.model.get('current_i'), c = this.model.get('coords_' + i);
