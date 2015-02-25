@@ -87,9 +87,3 @@ define(function(require) {
 		}
 	});
 });
-
-/**
- *  console.log(p.prop('width'));
- console.log(p.get(0).naturalWidth);
- this.cancon = this.$('canvas')[0].getContext("2d");
- */
