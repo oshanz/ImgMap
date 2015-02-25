@@ -12,7 +12,13 @@ define(function(require) {
 			return this.el;
 		},
 		initialize : function() {
+			this.hisCroods = [];
 			this.listenTo(this.model, 'change:src', this.resetImg);
+			this.listenTo(this.model, 'change:current_i', this.newMap);
+		},
+		newMap : function() {
+			this.hisCroods.push(this.coords);
+			this.coords = [];
 		},
 		resetImg : function() {
 			this.coords = [];
@@ -30,6 +36,25 @@ define(function(require) {
 		events : {
 			'click canvas' : 'markPoint'
 		},
+		drawPreMaps : function() {
+			_.each(this.hisCroods, function(c) {
+				this.drawMap(c);
+			}, this);
+		},
+		drawMap : function(coords) {
+			this.ctx.beginPath();
+			this.ctx.moveTo(coords[0].X, coords[0].Y);
+			coords.push(coords[0]);
+			for (var i = 1; i < coords.length; i++) {
+				this.ctx.lineTo(coords[i].X, coords[i].Y);
+			}
+			this.ctx.closePath();
+			this.ctx.strokeStyle = "blue";
+			this.ctx.stroke();
+			this.ctx.fillStyle = 'rgba(181,229,255,0.5)';
+			this.ctx.fill();
+			coords.pop();
+		},
 		markPoint : function(e) {
 			var vali = this.coordvalidate();
 			if (!vali) {
@@ -38,6 +63,7 @@ define(function(require) {
 			} else {
 				var crd = JSON.parse(JSON.stringify(this.coords));
 				this.resetImg();
+				this.drawPreMaps();
 				this.coords = crd;
 				var img = $(e.currentTarget).offset();
 				var y = e.pageY - img.top;
@@ -46,19 +72,7 @@ define(function(require) {
 					X : x,
 					Y : y
 				});
-				this.coords.push(this.coords[0]);
-				//draw path
-				this.ctx.beginPath();
-				this.ctx.moveTo(this.coords[0].X, this.coords[0].Y);
-				for (var i = 1; i < this.coords.length; i++) {
-					this.ctx.lineTo(this.coords[i].X, this.coords[i].Y);
-				}
-				this.ctx.closePath();
-				this.ctx.strokeStyle = "blue";
-				this.ctx.stroke();
-				this.ctx.fillStyle = 'rgba(181,229,255,0.5)';
-				this.ctx.fill();
-				this.coords.pop();
+				this.drawMap(this.coords);
 			}
 			var i = this.model.get('current_i');
 			this.model.set('coords_' + i, JSON.parse(JSON.stringify(this.coords)));
