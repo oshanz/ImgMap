@@ -14,7 +14,7 @@
 | path to your installation.
 |
 */
-$config['base_url']	= 'http://localhost/WLImageMap/';
+$config['base_url']	= '';
 
 /*
 |--------------------------------------------------------------------------

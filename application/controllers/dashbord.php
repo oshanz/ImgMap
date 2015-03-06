@@ -13,16 +13,16 @@
  */
 class Dashbord extends CI_Controller {
 
-    //put your code here
-    public function __construct() {
-        parent::__construct();
-    }
+	//put your code here
+	public function __construct() {
+		parent::__construct();
+	}
 
-    function index() {
-        $this->load->view('template/header');
-        $this->load->view('template/menu');
-        $this->load->view('dashbord/index');
-        $this->load->view('template/footer');
-    }
+	function index() {
+		$this->load->view('template/header');
+		$this->load->view('template/menu');
+		$this->load->view('dashbord/index');
+		$this->load->view('template/footer');
+	}
 
 }
