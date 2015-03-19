@@ -1,47 +1,58 @@
 "use strict";
 
 define(function(require) {
-	var _ = require('underscore'), Backbone = require('backbone'), tpl = _.template(require('text!form/img/ozImg_tpl.html'));
+	var _ = require('underscore'),
+		Backbone = require('backbone'),
+		tpl = _.template(require('text!form/img/ozImg_tpl.html'));
 
 	return Backbone.View.extend({
-		template : tpl,
-		coords : [],
-		hisCroods : [],
-		render : function() {
+		template: tpl,
+		coords: [],
+		hisCroods: [],
+		render: function() {
 			this.$el.html(this.template());
 			this.ctx = this.$('canvas')[0].getContext("2d");
 			return this.el;
 		},
-		initialize : function() {
+		initialize: function() {
 			this.listenTo(this.model, 'change:src', this.resetImg);
 			this.listenTo(this.model, 'change:current_i', this.newMap);
+			this.listenTo(this.model, 'removeMap', this.removeMap);
 		},
-		newMap : function() {
+		removeMap: function(i) {
+			this.hisCroods.splice(i, 1);
+			var hcrd = JSON.parse(JSON.stringify(this.hisCroods));
+			this.resetImg();
+			this.hisCroods = hcrd;
+			this.drawPreMaps();
+		},
+		newMap: function() {
 			this.hisCroods.push(this.coords);
 			this.coords = [];
 		},
-		resetImg : function() {
+		resetImg: function() {
 			this.coords = [];
-			var img = this.$('img').get(0), cvs = this.$('canvas');
+			var img = this.$('img').get(0),
+				cvs = this.$('canvas');
 			this.ctx.clearRect(0, 0, cvs.prop('width'), cvs.prop('height'));
 			img.src = this.model.get('src');
 			img.style.display = 'none';
 			var w = img.naturalWidth, //naturalWidth,
-			h = img.naturalHeight;
+				h = img.naturalHeight;
 			cvs.attr('width', w + 'px');
 			cvs.attr('height', h + 'px');
 			cvs.css('border', '1px solid');
 			this.ctx.drawImage(img, 0, 0, w, h);
 		},
-		events : {
-			'click canvas' : 'markPoint'
+		events: {
+			'click canvas': 'markPoint'
 		},
-		drawPreMaps : function() {
+		drawPreMaps: function() {
 			_.each(this.hisCroods, function(c) {
 				this.drawMap(c);
 			}, this);
 		},
-		drawMap : function(coords) {
+		drawMap: function(coords) {
 			this.ctx.beginPath();
 			this.ctx.moveTo(coords[0].X, coords[0].Y);
 			coords.push(coords[0]);
@@ -55,7 +66,7 @@ define(function(require) {
 			this.ctx.fill();
 			coords.pop();
 		},
-		markPoint : function(e) {
+		markPoint: function(e) {
 			var vali = this.coordvalidate();
 			if (!vali) {
 				alert('Too Much Marks');
@@ -68,8 +79,8 @@ define(function(require) {
 				var y = e.pageY - img.top;
 				var x = e.pageX - img.left;
 				this.coords.push({
-					X : x,
-					Y : y
+					X: x,
+					Y: y
 				});
 				this.drawMap(this.coords);
 			}
@@ -77,8 +88,9 @@ define(function(require) {
 			this.model.set('coords_' + i, JSON.parse(JSON.stringify(this.coords)));
 			this.drawPreMaps();
 		},
-		coordvalidate : function() {
-			var i = this.model.get('current_i'), c = this.model.get('coords_' + i);
+		coordvalidate: function() {
+			var i = this.model.get('current_i'),
+				c = this.model.get('coords_' + i);
 			var st = _.map(c, function(o) {
 				return o.X + ',' + o.Y;
 			});
